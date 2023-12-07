@@ -34,6 +34,13 @@ class Response {
     function respond(string $text) {
         echo $text;
     }
+    function status(int $code){
+        http_response_code($code);
+    }
+    function json($data){
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data);
+    }
     function respondWithCode(string $text, int $code){
         echo $text;
         http_response_code($code);
@@ -54,5 +61,8 @@ class Response {
     function render(string $path, array $params = array()) {
         extract($params);
         include __DIR__ . "/views/$path.view.php";
+    }
+    function end() {
+        exit;
     }
 }
