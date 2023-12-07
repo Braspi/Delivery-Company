@@ -1,111 +1,58 @@
 <?php
+class Router {
+    protected array $routes = [];
 
-function get($route, $path_to_include)
-{
-	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-		route($route, $path_to_include);
-	}
-}
-function post($route, $path_to_include)
-{
-	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		route($route, $path_to_include);
-	}
-}
-function put($route, $path_to_include)
-{
-	if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-		route($route, $path_to_include);
-	}
-}
-function patch($route, $path_to_include)
-{
-	if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
-		route($route, $path_to_include);
-	}
-}
-function delete($route, $path_to_include)
-{
-	if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-		route($route, $path_to_include);
-	}
-}
-function any($route, $path_to_include)
-{
-	route($route, $path_to_include);
-}
-function route($route, $path_to_include)
-{
-	$callback = $path_to_include;
-	if (!is_callable($callback)) {
-		if (!strpos($path_to_include, '.php')) {
-			$path_to_include .= '.php';
-		}
-	}
-	if ($route == "/404") {
-		include_once __DIR__ . "/$path_to_include";
-		exit();
-	}
-	$request_url = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
-	$request_url = rtrim($request_url, '/');
-	$request_url = strtok($request_url, '?');
-	$route_parts = explode('/', $route);
-	$request_url_parts = explode('/', $request_url);
-	array_shift($route_parts);
-	array_shift($request_url_parts);
-	if ($route_parts[0] == '' && count($request_url_parts) == 0) {
-		// Callback function
-		if (is_callable($callback)) {
-			call_user_func_array($callback, []);
-			exit();
-		}
-		include_once __DIR__ . "/$path_to_include";
-		exit();
-	}
-	if (count($route_parts) != count($request_url_parts)) {
-		return;
-	}
-	$parameters = [];
-	for ($__i__ = 0; $__i__ < count($route_parts); $__i__++) {
-		$route_part = $route_parts[$__i__];
-		if (preg_match("/^[$]/", $route_part)) {
-			$route_part = ltrim($route_part, '$');
-			array_push($parameters, $request_url_parts[$__i__]);
-			$$route_part = $request_url_parts[$__i__];
-		} else if ($route_parts[$__i__] != $request_url_parts[$__i__]) {
-			return;
-		}
-	}
-	// Callback function
-	if (is_callable($callback)) {
-		call_user_func_array($callback, $parameters);
-		exit();
-	}
-	include_once __DIR__ . "/$path_to_include";
-	exit();
-}
-function out($text)
-{
-	echo htmlspecialchars($text);
+    public function route(string $method, string $url, closure $target) {
+        $this->routes[$method][$url] = $target;
+    }
+
+    public function matchRoute() {
+        $method = $_SERVER['REQUEST_METHOD'];
+        $url = $_SERVER['REQUEST_URI'];
+        if (isset($this->routes[$method])) {
+            foreach ($this->routes[$method] as $routeUrl => $target) {
+                $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
+                $params = array(new Response());
+                if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
+                    $params = array_merge($params, array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY));
+                    call_user_func_array($target, $params);
+                    return;
+                }
+            }
+        }
+        if (isset($this->routes['HANDLER_EXCEPTION'])) {
+            $target = $this->routes['HANDLER_EXCEPTION']['handler_exception'];
+            call_user_func_array($target, array(new Response()));
+        } else throw new Exception('Route not found');
+    }
+    function error(closure $target) {
+        $this->routes['HANDLER_EXCEPTION']["handler_exception"] = $target;
+    }
 }
 
-function set_csrf()
-{
-	session_start();
-	if (!isset($_SESSION["csrf"])) {
-		$_SESSION["csrf"] = bin2hex(random_bytes(50));
-	}
-	echo '<input type="hidden" name="csrf" value="' . $_SESSION["csrf"] . '">';
-}
-
-function is_csrf_valid()
-{
-	session_start();
-	if (!isset($_SESSION['csrf']) || !isset($_POST['csrf'])) {
-		return false;
-	}
-	if ($_SESSION['csrf'] != $_POST['csrf']) {
-		return false;
-	}
-	return true;
+class Response {
+    function respond(string $text) {
+        echo $text;
+    }
+    function respondWithCode(string $text, int $code){
+        echo $text;
+        http_response_code($code);
+    }
+    function parameters(): array {
+        parse_str($_SERVER['QUERY_STRING'], $parameters);
+        return $parameters;
+    }
+    function headers(){
+        return getallheaders();
+    }
+    function header(string $key): string {
+        return $this->headers()[$key];
+    }
+    function body(){
+        return json_decode(file_get_contents('php://input'), true);
+    }
+    function render(string $path, array $params = array()) {
+        extract($params);
+        include __DIR__ . "/views/$path.view.php";
+    }
 }
