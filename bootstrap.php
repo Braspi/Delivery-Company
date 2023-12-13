@@ -5,7 +5,6 @@ use utils\router\RouterCall;
 use utils\validation\Validation;
 
 include "common/services/database.service.php";
-include "config.php";
 include "common/utils/validation/index.php";
 include "common/dto/login.dto.php";
 

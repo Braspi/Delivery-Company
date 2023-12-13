@@ -7,7 +7,4 @@ const database = array(
     "name" => "firma_kurierska"
 );
 const root_path = __DIR__;
-
-define("component", function (string $name) {
-   echo $name;
-});
+const development_mode = true;
