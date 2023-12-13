@@ -16,6 +16,10 @@ $router->route('GET', "/", function (RouterCall $call) {
     $call->render("login");
 });
 
+$router->route('GET', "/dashboard", function (RouterCall $call) {
+    $call->render("dashboard/index");
+});
+
 $router->route("POST", "/api/auth/login", function ($call) {
     $dto = new LoginDto($call->body());
     $state = new Validation($dto);
