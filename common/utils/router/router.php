@@ -3,13 +3,24 @@ namespace utils\router;
 
 use Closure;
 
-class Router
-{
+enum HttpMethod {
+    case GET;
+    case POST;
+    case DELETE;
+    case PUT;
+}
+
+class Router{
     protected array $routes = [];
 
-    public function route(string $method, string $url, closure $target): void
-    {
+    public function route(string $method, string $url, closure $target): void{
         $this->routes[$method][$url] = $target;
+    }
+//    public function get(string $url, closure $target): void {
+//        $this->routes[HttpMethod::GET][$url] = $target;
+//    }
+    public function post(string $url, closure $target): void {
+        $this->routes['GET'][$url] = $target;
     }
 
     public function matchRoute(): void

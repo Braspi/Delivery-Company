@@ -1,56 +1,10 @@
-<?php
-include "common/utils/router/router.php";
-use utils\router\Router;
-use utils\router\RouterCall;
-use utils\validation\Validation;
-
-include "common/services/database.service.php";
-include "config.php";
-include "common/utils/validation/index.php";
-include "common/dto/login.dto.php";
-
-const databaseService = new DatabaseService();
-
-$router = new Router();
-
-$router->route('GET', "/", function (RouterCall $call) {
-    $call->render("login");
-});
-
-$router->route("POST", "/api/auth/login", function ($call) {
-    $dto = new LoginDto($call->body());
-    $state = new Validation($dto);
-    $state->execute($call);
-
-    $user = databaseService->query("SELECT id, login, password FROM accounts WHERE login = '" . $dto->login . "'");
-    if (count($user) <= 0) {
-        $call->status(401);
-        $call->json(array(
-            "success" => false,
-            "message" => "Niepoprawne hasło lub login!"
-        ));
-        return;
-    }
-    if(password_verify($dto->password, $user[0]['password'])) {
-        $call->json(array(
-            "success" => true,
-            "message" => ""
-        ));
-        //Zapisywanie sesji
-        return;
-    }
-    $call->json(array(
-        "success" => false,
-        "message" => "Niepoprawne hasło lub login!"
-    ));
-});
-
-$router->error(function ($call) {
-    $call->render("error");
-});
-
-try {
-    $router->matchRoute();
-} catch (Exception $e) {
-    die($e->getMessage());
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./static/css/output.css">
+</head>
+<body>
+<?php require 'bootstrap.php' ?>
+</body>
