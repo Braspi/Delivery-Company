@@ -2,7 +2,6 @@
 
 namespace utils\router;
 
-interface Controller
-{
-
+interface Controller {
+    function routes(Router $router): void;
 }

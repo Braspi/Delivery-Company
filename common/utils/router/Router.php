@@ -23,8 +23,10 @@ class Router {
         $this->routes[HttpMethod::ANY->name][$url] = $target;
     }
 
-    public function controller(Controller $controller) {
-
+    public function controllers(Controller... $controllers): void{
+        foreach ($controllers as $controller) {
+            $controller->routes($this);
+        }
     }
 
     public function matchRoute(): void{

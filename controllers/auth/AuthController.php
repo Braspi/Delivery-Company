@@ -3,7 +3,7 @@
 use utils\router\Controller;
 use utils\router\RouterCall;
 use utils\validation\Validation;
-
+include_once 'dto/login.dto.php';
 include "common/utils/router/Controller.php";
 include_once 'common/services/database.service.php';
 
@@ -44,9 +44,7 @@ class AuthController implements Controller {
         ));
     }
 
-    function routes(): array {
-        return array(
-            "/api/auth/login" => $this::logIn()
-        );
+    function routes($router): void {
+        $router->post("/api/auth/login", function ($call) { $this->logIn($call); });
     }
 }
