@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <?php
-    include "config.php";
+    include "config.php.template";
     echo development_mode ?
         "<script src='https://cdn.tailwindcss.com'></script>":
         "<link rel='stylesheet' href='./static/css/output.css'>";
