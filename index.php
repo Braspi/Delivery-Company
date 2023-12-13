@@ -1,47 +1,52 @@
 <?php
-include 'router.php';
-include "services/database.service.php";
+include "common/utils/router/router.php";
+use utils\router\Router;
+use utils\router\RouterCall;
+use utils\validation\Validation;
+
+include "common/services/database.service.php";
 include "config.php";
-include "dto/index.php";
+include "common/utils/validation/index.php";
+include "common/dto/login.dto.php";
 
 const databaseService = new DatabaseService();
 
 $router = new Router();
 
-$router->route('GET', "/", function ($res) {
-    $res->render("login");
+$router->route('GET', "/", function (RouterCall $call) {
+    $call->render("login");
 });
 
-$router->route("POST", "/api/auth/login", function ($res) {
-    $dto = new LoginDto($res->body());
+$router->route("POST", "/api/auth/login", function ($call) {
+    $dto = new LoginDto($call->body());
     $state = new Validation($dto);
-    $state->execute($res);
+    $state->execute($call);
 
     $user = databaseService->query("SELECT id, login, password FROM accounts WHERE login = '" . $dto->login . "'");
     if (count($user) <= 0) {
-        $res->status(401);
-        $res->json(array(
+        $call->status(401);
+        $call->json(array(
             "success" => false,
             "message" => "Niepoprawne hasło lub login!"
         ));
         return;
     }
     if(password_verify($dto->password, $user[0]['password'])) {
-        $res->json(array(
+        $call->json(array(
             "success" => true,
             "message" => ""
         ));
         //Zapisywanie sesji
         return;
     }
-    $res->json(array(
+    $call->json(array(
         "success" => false,
         "message" => "Niepoprawne hasło lub login!"
     ));
 });
 
-$router->error(function ($res) {
-    $res->render("error");
+$router->error(function ($call) {
+    $call->render("error");
 });
 
 try {

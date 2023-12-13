@@ -1,5 +1,9 @@
 <?php
-interface Validated {
+
+namespace utils\validation;
+interface Validated
+{
     function validate(): array;
+
     function getData(): array;
 }

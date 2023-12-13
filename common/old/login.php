@@ -38,7 +38,7 @@
         <input type="password" name="password" required placeholder="Hasło">
         <button type="submit">Zarejestruj</button>
     </form>
-    <form action="../index.php" method="POST">
+    <form action="../../index.php" method="POST">
         <input type="text" name="login" required placeholder="Login">
         <input type="password" name="password" required placeholder="Hasło">
         <?php createCsrfInput() ?>

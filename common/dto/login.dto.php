@@ -1,6 +1,9 @@
 <?php
-include "validated.php";
-include "violations/index.php";
+
+use utils\validation\Validated;
+use utils\validation\violations\LengthViolation;
+
+include "common/utils/validation/validated.php";
 
 class LoginDto implements Validated {
     public string $login;

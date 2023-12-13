@@ -1,8 +1,13 @@
 <?php
-class Validation {
+
+namespace utils\validation;
+
+class Validation
+{
     private array $violations = array();
 
-    public function __construct(Validated $dto){
+    public function __construct(Validated $dto)
+    {
         foreach ($dto->validate() as $key => $violations) {
             foreach ($violations as $violation) {
                 if (!$violation->check($dto->getData()[$key])) {
@@ -12,7 +17,9 @@ class Validation {
             }
         }
     }
-    function execute($res){
+
+    function execute($res): void
+    {
         if (count($this->violations) == 0) return;
         $res->status(400);
         $res->json(array(

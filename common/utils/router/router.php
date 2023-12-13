@@ -1,18 +1,25 @@
 <?php
-class Router {
+namespace utils\router;
+
+use Closure;
+
+class Router
+{
     protected array $routes = [];
 
-    public function route(string $method, string $url, closure $target) {
+    public function route(string $method, string $url, closure $target): void
+    {
         $this->routes[$method][$url] = $target;
     }
 
-    public function matchRoute() {
+    public function matchRoute(): void
+    {
         $method = $_SERVER['REQUEST_METHOD'];
         $url = $_SERVER['REQUEST_URI'];
         if (isset($this->routes[$method])) {
             foreach ($this->routes[$method] as $routeUrl => $target) {
                 $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-                $params = array(new Response());
+                $params = array(new RouterCall());
                 if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
                     $params = array_merge($params, array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY));
                     call_user_func_array($target, $params);
@@ -22,47 +29,69 @@ class Router {
         }
         if (isset($this->routes['HANDLER_EXCEPTION'])) {
             $target = $this->routes['HANDLER_EXCEPTION']['handler_exception'];
-            call_user_func_array($target, array(new Response()));
+            call_user_func_array($target, array(new RouterCall()));
         } else throw new Exception('Route not found');
     }
-    function error(closure $target) {
+
+    function error(closure $target): void
+    {
         $this->routes['HANDLER_EXCEPTION']["handler_exception"] = $target;
     }
 }
 
-class Response {
-    function respond(string $text) {
+class RouterCall
+{
+    function respond(string $text): void
+    {
         echo $text;
     }
-    function status(int $code){
+
+    function status(int $code): void
+    {
         http_response_code($code);
     }
-    function json($data){
+
+    function json($data): void
+    {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
     }
-    function respondWithCode(string $text, int $code){
+
+    function respondWithCode(string $text, int $code): void
+    {
         echo $text;
         http_response_code($code);
     }
-    function parameters(): array {
+
+    function parameters(): array
+    {
         parse_str($_SERVER['QUERY_STRING'], $parameters);
         return $parameters;
     }
-    function headers(){
+
+    function headers(): array
+    {
         return getallheaders();
     }
-    function header(string $key): string {
+
+    function header(string $key): string
+    {
         return $this->headers()[$key];
     }
-    function body(){
+
+    function body()
+    {
         return json_decode(file_get_contents('php://input'), true);
     }
-    function render(string $path, array $params = array()) {
+
+    function render(string $path, array $params = array()): void
+    {
         extract($params);
-        include __DIR__ . "/views/$path.view.php";
+        include root_path . "/views/$path.view.php";
     }
-    function end() {
+
+    function end(): void
+    {
         exit;
     }
 }
