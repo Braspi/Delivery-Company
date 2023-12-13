@@ -1,5 +1,6 @@
 <?php
 include "common/utils/router/router.php";
+
 use utils\router\Router;
 use utils\router\RouterCall;
 use utils\validation\Validation;
@@ -14,6 +15,10 @@ $router = new Router();
 
 $router->route('GET', "/", function (RouterCall $call) {
     $call->render("login");
+});
+
+$router->route('GET', "/register", function (RouterCall $call) {
+    $call->render("register");
 });
 
 $router->route("POST", "/api/auth/login", function ($call) {
@@ -35,7 +40,8 @@ $router->route("POST", "/api/auth/login", function ($call) {
             "success" => true,
             "message" => ""
         ));
-        //Zapisywanie sesji
+        $_SESSION['user_id'] = $user[0]['id'];
+        $_SESSION['isLoggedIn'] = true;
         return;
     }
     $call->json(array(
