@@ -17,6 +17,10 @@ $router->get("/register", function (RouterCall $call) {
     $call->render("register");
 });
 
+$router->get("/dashboard", function (RouterCall $call) {
+    $call->render("dashboard/index");
+});
+
 $router->controllers(
     new AuthController()
 );
