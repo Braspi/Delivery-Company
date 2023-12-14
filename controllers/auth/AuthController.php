@@ -86,7 +86,6 @@ class AuthController implements Controller {
             "succes" => true,
             "message" => "Konto zostało stworzone"
         ));
-
     }
 
     function routes($router): void {

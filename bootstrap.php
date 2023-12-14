@@ -7,6 +7,7 @@ include_once 'common/guards/AuthGuard.php';
 
 use utils\router\Router;
 use utils\router\RouterCall;
+
 session_start();
 $router = new Router();
 
