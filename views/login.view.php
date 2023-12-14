@@ -32,22 +32,29 @@
 //    }
 //    ?>
 </head>
-<body>
-<div class="flex flex-col justify-center items-center h-screen">
-    <section class="flex-col">
-        <h1>Zaloguj sie aby kontynuować</h1>
-        <form action="register.php" method="POST">
-            <input type="text" name="login" required placeholder="Login" class="border border-slate-300 w-24 h-12 text-center rounded-lg">
-            <input type="password" name="password" required placeholder="Hasło">
-            <button type="submit">Zarejestruj</button>
+<body class="bg-[#F5F5F5] h-screen flex items-center justify-center h-screen">
+<div class="flex">
+    <div class="border p-8 rounded-lg w-96">
+        <h1 class="text-3xl font-semibold mb-6 text-center">Zaloguj się, aby kontynuować</h1>
+        <form action="" method="POST">
+            <div class="mb-4">
+                <label for="login" class="text-gray-700 block mb-1">Login</label>
+                <input type="text" name="login" id="login" required placeholder="Login" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="password" class="text-gray-700 block mb-1">Hasło</label>
+                <input type="password" name="password" id="password" required placeholder="Password" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
+            </div>
+            <?php //createCsrfInput() ?>
+            <div class="flex justify-center items-center">
+                <button type="submit" class=" bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-800">Zaloguj</button>
+            </div>
         </form>
-        <form action="index.php" method="POST">
-            <input type="text" name="login" required placeholder="Login">
-            <input type="password" name="password" required placeholder="Hasło">
-<!--            --><?php //createCsrfInput() ?>
-            <button type="submit">Zaloguj</button>
-        </form>
-    </section>
+        <div class="text-gray-700 text-center">
+            <p class="mt-4">Nie masz jeszcze konta? <a href="/register" class="text-gray-500 underline ">Zarejestruj się!</a></p>
+            <p class="text-sm opacity-70 mt-1"> <?php echo date('Y') ?> © Design and code - notbytes.pl</p>
+        </div>
+    </div>
 </div>
 </body>
 </html>
