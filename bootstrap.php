@@ -13,7 +13,7 @@ $router->get("/", function (RouterCall $call) {
     $call->render("login");
 });
 
-$router->route('GET', "/register", function (RouterCall $call) {
+$router->get("/register", function (RouterCall $call) {
     $call->render("register");
 });
 

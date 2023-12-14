@@ -1,5 +1,5 @@
 <?php include "config.php"; ?>
-<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) || $_SERVER['HTTP_CONTENT_TYPE'] != 'application/json') { ?>
+<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">

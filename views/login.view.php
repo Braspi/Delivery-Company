@@ -57,4 +57,16 @@
     </div>
 </div>
 </body>
+<script>
+    (async () => {
+        const res = await fetch("/api/auth/login", {
+            method: 'POST',
+            body: JSON.stringify({
+                login: "erw",
+                password: "eew"
+            })
+        })
+        console.log(await res.json());
+    })();
+</script>
 </html>

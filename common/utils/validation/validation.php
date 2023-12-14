@@ -10,7 +10,6 @@ class Validation
     public function __construct(Validated $dto)
     {
         foreach ($dto->validate() as $key => $violations) {
-            echo $key;
             foreach ($violations as $violation) {
                 if (!$violation->check($dto->getData()[$key])) {
                     if (!isset($this->violations[$key]))
