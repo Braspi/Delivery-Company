@@ -1,5 +1,7 @@
 <?php include "config.php"; ?>
 <?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
+<!doctype html>
+<html lang="pl">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -13,5 +15,11 @@
         ?>
         <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     </head>
+    <body>
 <?php } ?>
 <?php require_once 'bootstrap.php' ?>
+<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
+        <script src="/static/javascript/core.js"></script>
+    </body>
+</html>
+<?php } ?>
