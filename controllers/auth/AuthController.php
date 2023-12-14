@@ -15,7 +15,6 @@ class AuthController implements Controller {
     }
 
     function logIn(RouterCall $call): void{
-        session_start();
         $dto = new LoginDto($call->body());
         $state = new Validation($dto);
         $state->execute($call);

@@ -7,20 +7,35 @@ use Exception;
 class Router {
     protected array $routes = [];
 
-    public function get(string $url, closure $target): void {
-        $this->routes[HttpMethod::GET->name][$url] = $target;
+    public function get(string $url, closure $target, HttpGuard... $guards): void {
+        $this->routes[HttpMethod::GET->name][$url] = array(
+            "target" => $target,
+            "guards" => $guards
+        );
     }
-    public function post(string $url, closure $target): void {
-        $this->routes[HttpMethod::POST->name][$url] = $target;
+    public function post(string $url, closure $target, HttpGuard... $guards): void {
+        $this->routes[HttpMethod::POST->name][$url] = array(
+            "target" => $target,
+            "guards" => $guards
+        );
     }
-    public function delete(string $url, closure $target): void {
-        $this->routes[HttpMethod::DELETE->name][$url] = $target;
+    public function delete(string $url, closure $target, HttpGuard... $guards): void {
+        $this->routes[HttpMethod::DELETE->name][$url] = array(
+            "target" => $target,
+            "guards" => $guards
+        );
     }
-    public function put(string $url, closure $target): void {
-        $this->routes[HttpMethod::PUT->name][$url] = $target;
+    public function put(string $url, closure $target, HttpGuard... $guards): void {
+        $this->routes[HttpMethod::PUT->name][$url] = array(
+            "target" => $target,
+            "guards" => $guards
+        );
     }
-    public function any(string $url, closure $target): void {
-        $this->routes[HttpMethod::ANY->name][$url] = $target;
+    public function any(string $url, closure $target, HttpGuard... $guards): void {
+        $this->routes[HttpMethod::ANY->name][$url] = array(
+            "target" => $target,
+            "guards" => $guards
+        );
     }
 
     public function controllers(Controller... $controllers): void{
@@ -33,12 +48,18 @@ class Router {
         $method = HttpMethod::fromRequest();
         $url = $_SERVER['REQUEST_URI'];
         if (isset($this->routes[$method->name])) {
-            foreach ($this->routes[$method->name] as $routeUrl => $target) {
+            foreach ($this->routes[$method->name] as $routeUrl => $data) {
                 $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-                $params = array(new RouterCall());
+                $routerCall = new RouterCall();
+                $params = array($routerCall);
                 if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
                     $params = array_merge($params, array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY));
-                    call_user_func_array($target, $params);
+                    if (count($data['guards']) > 0){
+                        foreach ($data['guards'] as $guard) {
+                            if(!$guard->canActivate($routerCall)) exit();
+                        }
+                    }
+                    call_user_func_array($data['target'], $params);
                     return;
                 }
             }

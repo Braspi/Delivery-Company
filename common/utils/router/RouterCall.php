@@ -33,6 +33,11 @@ class RouterCall{
         extract($params);
         include root_path . "/views/$path.view.php";
     }
+
+    function redirect(string $path): void{
+        header("Location: $path");
+        die();
+    }
     function end(): void {
         exit;
     }
