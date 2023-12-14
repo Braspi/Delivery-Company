@@ -17,7 +17,19 @@
     </head>
     <body>
 <?php } ?>
-<?php require_once 'bootstrap.php' ?>
+<?php
+try {
+    require_once 'bootstrap.php';
+}catch (Error $exception) {
+    ob_clean();
+    $call = new \utils\router\RouterCall();
+    $call->render('error', array(
+        "message" => "Internal Server Error!",
+        "stacktrace" => $exception
+    ));
+    exit();
+}
+?>
 <?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
         <script src="/static/javascript/core.js"></script>
     </body>

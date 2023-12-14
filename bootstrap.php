@@ -28,7 +28,10 @@ $router->controllers(
 );
 
 $router->error(function ($call) {
-    $call->render("error");
+    $call->render("error", array(
+        "message" => "Not Found!",
+        "stacktrace" => ""
+    ));
 });
 
 try {

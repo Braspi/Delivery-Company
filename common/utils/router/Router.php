@@ -8,34 +8,19 @@ class Router {
     protected array $routes = [];
 
     public function get(string $url, closure $target, HttpGuard... $guards): void {
-        $this->routes[HttpMethod::GET->name][$url] = array(
-            "target" => $target,
-            "guards" => $guards
-        );
+        $this->route(HttpMethod::GET, $url, $target, $guards);
     }
     public function post(string $url, closure $target, HttpGuard... $guards): void {
-        $this->routes[HttpMethod::POST->name][$url] = array(
-            "target" => $target,
-            "guards" => $guards
-        );
+        $this->route(HttpMethod::POST, $url, $target, $guards);
     }
     public function delete(string $url, closure $target, HttpGuard... $guards): void {
-        $this->routes[HttpMethod::DELETE->name][$url] = array(
-            "target" => $target,
-            "guards" => $guards
-        );
+        $this->route(HttpMethod::DELETE, $url, $target, $guards);
     }
     public function put(string $url, closure $target, HttpGuard... $guards): void {
-        $this->routes[HttpMethod::PUT->name][$url] = array(
-            "target" => $target,
-            "guards" => $guards
-        );
+        $this->route(HttpMethod::PUT, $url, $target, $guards);
     }
     public function any(string $url, closure $target, HttpGuard... $guards): void {
-        $this->routes[HttpMethod::ANY->name][$url] = array(
-            "target" => $target,
-            "guards" => $guards
-        );
+        $this->route(HttpMethod::ANY, $url, $target, $guards);
     }
 
     public function controllers(Controller... $controllers): void{
@@ -64,12 +49,18 @@ class Router {
                 }
             }
         }
-        if (isset($this->routes['HANDLER_EXCEPTION'])) {
+        if (isset($this->routes[HttpMethod::EXCEPTION_HANDLER->name])) {
             $target = $this->routes[HttpMethod::EXCEPTION_HANDLER->name]['handler_exception'];
-            call_user_func($target, new RouterCall());
+            call_user_func_array($target, array(new RouterCall()));
         } else throw new Exception('Route not found');
     }
     function error(closure $target): void{
         $this->routes[HttpMethod::EXCEPTION_HANDLER->name]["handler_exception"] = $target;
+    }
+    private function route(HttpMethod $method, string $url, closure $target, array $guards): void{
+        $this->routes[$method->name][$url] = array(
+            "target" => $target,
+            "guards" => $guards
+        );
     }
 }
