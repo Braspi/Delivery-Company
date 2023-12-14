@@ -13,6 +13,10 @@ $router->get("/", function (RouterCall $call) {
     $call->render("login");
 });
 
+$router->get("/dashboard", function (RouterCall $call) {
+    $call->render("dashboard/index");
+});
+
 $router->route('GET', "/register", function (RouterCall $call) {
     $call->render("register");
 });
