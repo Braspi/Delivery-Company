@@ -63,7 +63,7 @@
             method: 'POST',
             body: JSON.stringify({
                 login: "erw",
-                password: "eew"
+                password: "eewr"
             })
         })
         console.log(await res.json());
