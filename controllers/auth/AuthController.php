@@ -44,6 +44,52 @@ class AuthController implements Controller {
         ));
     }
 
+    function register(RouterCall $call): void {
+        $dto = new RegisterDto($call->body());
+        $state = new Validation($dto);
+        $state->execute($call);
+        
+        $user = $this->databaseService->query("SELECT id, login, password FROM accounts WHERE login = '" . $dto->login . "'");
+        if(count($user) <= 0) {
+            $call-> status(409);
+            $call->json(array(
+                "success" => false,
+                "message" => "Ten użytkownik już istnieje"
+            ));
+            return;
+        }
+        if($dto->password != $dto->repeatpass) {
+            $call-> status(400);
+            $call->json(array(
+                "succes" => false,
+                "message" => "Hasła nie są takie same"
+            ));
+            return;
+        }
+
+        $isCreated = $this->databaseService->execute(
+            "INSERT INTO `accounts`(`login`, `password`, `registration_date`, `status`) VALUES (?,?,CURRENT_DATE(),'NOT_ACTIVE')",
+            "ss",
+            $dto->login, 
+            password_hash($dto->password, PASSWORD_BCRYPT)
+        );
+
+        if(!$isCreated) {
+            $call-> status(400);
+            $call->json(array(
+                "succes" => false,
+                "message" => "Nie można storzyć użytkownika"
+            ));
+            return;
+        }
+        $call-> status(201);
+        $call->json(array(
+            "succes" => true,
+            "message" => "Konto zostało stworzone"
+        ));
+
+    }
+
     function routes($router): void {
         $router->post("/api/auth/login", function ($call) { $this->logIn($call); });
     }

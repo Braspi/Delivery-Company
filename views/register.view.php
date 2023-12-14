@@ -11,15 +11,15 @@
         <form action="" method="POST">
             <div class="mb-4">
                 <label for="login" class="text-gray-700 block mb-1">Login</label>
-                <input type="text" name="login" id="login" required placeholder="Login" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
+                <input type="text" id="login_input" required placeholder="Login" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
                 <label for="password" class="text-gray-700 block mb-1">Hasło</label>
-                <input type="password" name="password" id="password" required placeholder="Password" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
+                <input type="password"  id="password_input" required placeholder="Password" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
                 <label for="password" class="text-gray-700 block mb-1">Powtórz Hasło</label>
-                <input type="password" name="password" id="password" required placeholder="Password" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
+                <input type="password"  id="password_input" required placeholder="Password" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
             </div>
             <?php //createCsrfInput() ?>
             <div class="flex justify-center items-center">

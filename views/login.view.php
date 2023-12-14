@@ -36,20 +36,20 @@
 <div class="flex">
     <div class="border p-8 rounded-lg w-96">
         <h1 class="text-3xl font-semibold mb-6 text-center">Zaloguj się, aby kontynuować</h1>
-        <form action="" method="POST">
+        <section>
             <div class="mb-4">
                 <label for="login" class="text-gray-700 block mb-1">Login</label>
-                <input type="text" name="login" id="login" required placeholder="Login" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
+                <input type="text" id="login_input" required placeholder="Login" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
                 <label for="password" class="text-gray-700 block mb-1">Hasło</label>
-                <input type="password" name="password" id="password" required placeholder="Password" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
+                <input type="password" id="password_input" required placeholder="Password" class="w-full border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500">
             </div>
             <?php //createCsrfInput() ?>
             <div class="flex justify-center items-center">
-                <button type="submit" class=" bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-800">Zaloguj</button>
+                <button id="login_button" class=" bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-800" >Zaloguj</button>
             </div>
-        </form>
+        </section>
         <div class="text-gray-700 text-center">
             <p class="mt-4">Nie masz jeszcze konta? <a href="/register" class="text-gray-500 underline ">Zarejestruj się!</a></p>
             <p class="text-sm opacity-70 mt-1"> <?php echo date('Y') ?> © Design and code - notbytes.pl</p>
@@ -58,15 +58,36 @@
 </div>
 </body>
 <script>
-    (async () => {
-        const res = await fetch("/api/auth/login", {
-            method: 'POST',
-            body: JSON.stringify({
-                login: "erw",
-                password: "eew"
+    const notyf = new Notyf({
+        position: {
+            x: 'right',
+            y: 'top',
+        },
+    });
+    const login_input = document.getElementById('login_input');
+    const password_input = document.getElementById('password_input');
+    const login_button = document.getElementById('login_button');
+    
+    login_button.addEventListener('click', () => {
+        (async () => {
+            const res = await fetch("/api/auth/login", {
+                method: 'POST',
+                body: JSON.stringify({
+                    login: login_input.value,
+                    password: password_input.value
+                })
             })
-        })
-        console.log(await res.json());
-    })();
+            const data = await res.json();
+            if(data.success == false) {
+                if(data.message) {
+                    notyf.error(data.message);
+                } else if(data.errors) {
+                    notyf.error(Object.values(data.errors)[0]);
+                }
+                return 
+            }
+            window.location.replace("/dashboard")
+        })();
+    })
 </script>
 </html>
