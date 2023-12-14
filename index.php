@@ -10,6 +10,7 @@
             "<script src='https://cdn.tailwindcss.com'></script>":
             "<link rel='stylesheet' href='./static/css/output.css'>";
         ?>
+        <script src="https://unpkg.com/lucide@latest"></script>
     </head>
 <?php } ?>
 <?php require_once 'bootstrap.php' ?>
