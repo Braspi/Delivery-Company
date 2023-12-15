@@ -3,20 +3,11 @@
 use utils\validation\Validated;
 use utils\validation\violations\LengthViolation;
 
-include "common/utils/validation/validated.php";
-
 class RegisterDto implements Validated {
     public string $login;
     public string $password;
     public string $repeatpass;
-    private $data;
-
-    public function __construct($data){
-        $this->data = $data;
-        $this->login = $data['login'];
-        $this->password = $data['password'];
-        $this->repeatpass = $data['repeatpass'];
-    }
+    private array $data;
 
     function validate(): array{
         return array(
@@ -32,8 +23,10 @@ class RegisterDto implements Validated {
         );
     }
 
-    function getData(): array
-    {
+    public function body($data): void{
+        $this->data = $data;
+    }
+    function getData(): array {
         return $this->data;
     }
 }

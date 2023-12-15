@@ -3,7 +3,7 @@
 namespace utils\validation\violations;
 interface Violation
 {
-    function check($value): bool;
+    function check($key, $value): bool;
 
     function getMessage(): string;
 }

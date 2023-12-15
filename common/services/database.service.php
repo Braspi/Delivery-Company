@@ -18,7 +18,6 @@ class DatabaseService {
         }
         return $data;
     }
-
     function execute(string $query, string $types, ...$vars): bool {
         $statement = $this->mysqli->prepare($query);
         $statement->bind_param($types, $vars);

@@ -1,9 +1,12 @@
 <?php
 namespace utils\router;
 
+use utils\validation\Validated;
+use utils\validation\Validation;
+use Closure;
 class RouterCall{
-    function respond(string $text): void{
-        echo $text;
+    function respond(mixed $text): void{
+        print_r($text);
     }
     function status(int $code): void{
         http_response_code($code);
@@ -29,11 +32,23 @@ class RouterCall{
     function body(){
         return json_decode(file_get_contents('php://input'), true);
     }
+
+    /**
+     * @template T of object
+     * @psalm-param class-string<T> $dto
+     * @param class-string<T> $dto
+     * @return T
+     */
+    function validatedBody(mixed $dto) {
+        $dto->body($this->body());
+        $state = new Validation($dto);
+        $state->execute($this);
+        return $dto;
+    }
     function render(string $path, array $params = array()): void{
         extract($params);
         include root_path . "/views/$path.view.php";
     }
-
     function redirect(string $path): void{
         header("Location: $path");
         die();
