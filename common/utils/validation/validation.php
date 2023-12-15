@@ -4,20 +4,22 @@ namespace utils\validation;
 use ReflectionProperty;
 
 require_once 'violations/index.php';
+include "common/utils/validation/validated.php";
 
 class Validation
 {
     private array $violations = array();
 
-    public function __construct(Validated $dto) {
+    public function __construct(Validated $dto, array $data) {
         $reflection = new \ReflectionClass($dto);
         $props = $reflection->getProperties(ReflectionProperty::IS_PUBLIC);
         foreach ($props as $prop) {
-            $prop->setValue($dto, $dto->getData()[$prop->getName()]);
+            $prop->setValue($dto, $data[$prop->getName()]);
         }
         foreach ($dto->validate() as $key => $violations) {
+            $value = $reflection->getProperty($key)->getValue($dto);
             foreach ($violations as $violation) {
-                if (!$violation->check($key, $dto->getData()[$key])) {
+                if (!$violation->check($key, $value)) {
                     if (!isset($this->violations[$key]))
                         $this->violations[$key] = $violation->getMessage();
                 }

@@ -7,7 +7,6 @@ class RegisterDto implements Validated {
     public string $login;
     public string $password;
     public string $repeatpass;
-    private array $data;
 
     function validate(): array{
         return array(
@@ -21,12 +20,5 @@ class RegisterDto implements Validated {
 
             // )
         );
-    }
-
-    public function body($data): void{
-        $this->data = $data;
-    }
-    function getData(): array {
-        return $this->data;
     }
 }

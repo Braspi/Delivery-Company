@@ -40,8 +40,7 @@ class RouterCall{
      * @return T
      */
     function validatedBody(mixed $dto) {
-        $dto->body($this->body());
-        $state = new Validation($dto);
+        $state = new Validation($dto, $this->body());
         $state->execute($this);
         return $dto;
     }
