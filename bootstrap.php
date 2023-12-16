@@ -1,6 +1,7 @@
 <?php
+include_once 'common/services/database.service.php';
+include_once 'common/repositories/index.php';
 include_once 'common/utils/router/Router.php';
-include_once 'common/utils/router/RouterCall.php';
 include_once 'common/utils/validation/validation.php';
 include_once 'controllers/auth/AuthController.php';
 include_once 'common/guards/AuthGuard.php';
@@ -13,13 +14,14 @@ session_start();
 $router = new Router();
 
 $databaseService = new DatabaseService();
+$userRepository = new UserRepository();
 
 $router->get("/", fn(RouterCall $call) => $call->render("login"));
 $router->get("/register", fn(RouterCall $call) => $call->render("register"));
 $router->get("/dashboard", fn(RouterCall $call) => $call->render("dashboard/index"), new AuthGuard());
 
 $router->controllers(
-    new AuthController($databaseService)
+    new AuthController($userRepository)
 );
 
 $router->error(function ($call) {

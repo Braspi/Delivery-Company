@@ -4,8 +4,8 @@ use utils\validation\Validated;
 use utils\validation\violations\LengthViolation;
 
 class LoginDto implements Validated {
-    public ?string $login;
-    public ?string $password;
+    public string $login;
+    public string $password;
 
     function validate(): array{
         return array(

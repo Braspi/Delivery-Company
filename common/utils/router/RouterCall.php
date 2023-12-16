@@ -8,8 +8,9 @@ class RouterCall{
     function respond(mixed $text): void{
         print_r($text);
     }
-    function status(int $code): void{
+    function status(int $code): RouterCall{
         http_response_code($code);
+        return $this;
     }
     function json($data): void{
         header('Content-Type: application/json; charset=utf-8');
@@ -44,7 +45,8 @@ class RouterCall{
         $state->execute($this);
         return $dto;
     }
-    function render(string $path, array $params = array()): void{
+    function render(string $path, array $params = array()): void
+    {
         extract($params);
         include root_path . "/views/$path.view.php";
     }

@@ -20,7 +20,7 @@ class DatabaseService {
     }
     function execute(string $query, string $types, ...$vars): bool {
         $statement = $this->mysqli->prepare($query);
-        $statement->bind_param($types, $vars);
+        $statement->bind_param($types, ...$vars);
         $statement->execute();
         return $statement->affected_rows > 0;
     }

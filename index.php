@@ -1,4 +1,8 @@
-<?php include "config.php"; ?>
+<?php
+include_once 'common/utils/router/RouterCall.php';
+use utils\router\RouterCall;
+
+include "config.php"; ?>
 <?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
 <!doctype html>
 <html lang="pl">
@@ -22,7 +26,7 @@ try {
     require_once 'bootstrap.php';
 }catch (Error $exception) {
     ob_clean();
-    $call = new \utils\router\RouterCall();
+    $call = new RouterCall();
     $call->render('error', array(
         "message" => "Internal Server Error!",
         "stacktrace" => $exception
