@@ -24,7 +24,7 @@ include "config.php"; ?>
 <?php
 try {
     require_once 'bootstrap.php';
-}catch (Error $exception) {
+} catch (Error $exception) {
     ob_clean();
     $call = new RouterCall();
     if(isset($_SERVER['HTTP_CONTENT_TYPE']) && $_SERVER['HTTP_CONTENT_TYPE'] == 'application/json') {
