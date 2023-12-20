@@ -27,7 +27,15 @@ try {
 }catch (Error $exception) {
     ob_clean();
     $call = new RouterCall();
-    $call->render('error', array(
+    if(isset($_SERVER['HTTP_CONTENT_TYPE']) && $_SERVER['HTTP_CONTENT_TYPE'] == 'application/json') {
+        $call->status(500)->json(array(
+            "success" => false,
+            "message" => "Internal Server Error! ({$exception->getMessage()})",
+            "stacktrace" => $exception->getTraceAsString()
+        ));
+        $call->end();
+    }
+    $call->status(500)->render('error', array(
         "message" => "Internal Server Error!",
         "stacktrace" => $exception
     ));

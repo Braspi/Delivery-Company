@@ -26,11 +26,7 @@ class Validation {
             $this->violations[$property_key] = "Invalid $property_key field in request!";
         }
         foreach ($dto->validate() as $key => $violations) {
-            try {
-                $property = $reflection->getProperty($key);
-            } catch (\ReflectionException $e) {
-                continue;
-            }
+            $property = $reflection->getProperty($key);
             if (!$property->isInitialized($dto)) continue;
             $value = $property->getValue($dto);
             foreach ($violations as $violation) {

@@ -43,11 +43,6 @@ class AuthController implements Controller {
             $call->status(409)->json(basicResponse("Ten użytkownik już istnieje"));
             return;
         }
-        if($dto->password != $dto->repeatpass) {
-            $call->status(400)->json(basicResponse("Hasła nie są takie same"));
-            return;
-        }
-
         $isCreated = $this->userRepository->create($dto->login, password_hash($dto->password, PASSWORD_BCRYPT));
         if(!$isCreated) {
             $call->status(400)->json(basicResponse("Nie można storzyć użytkownika"));
