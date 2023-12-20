@@ -1,5 +1,6 @@
 <?php
 namespace utils\router;
+require 'Component.php';
 require_once 'common/utils/router/HttpMethod.php';
 use Closure;
 use Exception;
