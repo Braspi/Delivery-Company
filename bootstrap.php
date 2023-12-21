@@ -19,6 +19,7 @@ $userRepository = new UserRepository();
 $router->get("/", view("login"));
 $router->get("/register", view("register"));
 $router->get("/dashboard", view("dashboard/index"), new AuthGuard());
+$router->get("/dashboard/employees", view("dashboard/employees"), new AuthGuard());
 
 $router->controllers(
     new AuthController($userRepository)

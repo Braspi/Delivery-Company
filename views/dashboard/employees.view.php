@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body class="bg-[#e7e7e7]">
-<div class="w-[300px] min-w-[235px] bg-[#F9F9F9] h-screen border text-[#6d6d6d] mt-0">
+<body>
+<body class="bg-[#e7e7e7af] flex">
+    <div class="w-[300px] min-w-[235px] bg-[#F9F9F9] h-screen border text-[#6d6d6d] mt-0">
         <ul class="text-2xl">
-            <li class="transition ease-in-out delay-0 mb-4 h-12 pl-10 flex justify-start border-[#53c9ff40] hover:text-[#3a6c81] hover:border-l-[5px] hover:border-[#53c9ff70] active:border-l-[7px] active:border-[#53c9ff] active:text-black">
+            <li class="mb-4 h-12 pl-10 flex justify-start border-l-[7px] border-[#53c9ff] text-black">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-[12px] mr-2"  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             <button>Pracownicy</button></li>
 
@@ -28,6 +29,33 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-[13px] mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>    
             <button>Kurierzy</button></li>
         </ul>
+    </div>
+
+    <div class="relative left-7 top-7 border border-slate-400 p-8 rounded-lg w-104 h-[458px] inline-block">
+        <h1 class="text-4xl mb-4">Dodaj pracownika</h1>
+        <input type="text" name="employee_name" id="" placeholder="Imię" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="employee_lastname" id="" placeholder="Nazwisko" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="employee_phone_number" id="" placeholder="Numer telefonu" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="employee_hours_from" id="" placeholder="Godziny od" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="employee_hours_to" id="" placeholder="Godziny do" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <select name="" id="" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+            <optgroup label="Oddziały">
+                <option value="" disabled selected>Wybierz oddział</option>
+                <option value="">Oddział 1</option>
+            </optgroup>
+        </select>
+        <input type="submit" value="Dodaj pracownika" class="bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 active:outline-none active:bg-gray-800">
+    </div>
+
+    <div class="relative left-7 top-7 border border-slate-400 p-8 rounded-lg w-104 h-min ml-10 inline-block">
+        <h1 class="text-4xl mb-4">Wyświetl pracowników</h1>
+        <select name="" id="" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+            <optgroup label="Oddziały">
+                <option value="" disabled selected>Wybierz oddział</option>
+                <option value="">Oddział 1</option>
+            </optgroup>
+        </select>
+        <input type="submit" value="Wyświetl pracowników" class="bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 active:outline-none active:bg-gray-800">
     </div>
 </body>
 </html>

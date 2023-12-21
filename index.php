@@ -17,6 +17,7 @@ include "config.php"; ?>
             "<script src='https://cdn.tailwindcss.com'></script>":
             "<link rel='stylesheet' href='./static/css/output.css'>";
         ?>
+        <script src="https://unpkg.com/lucide@latest"></script>
         <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     </head>
     <body>
