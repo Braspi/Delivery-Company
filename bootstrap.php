@@ -17,6 +17,10 @@ $router->get("/dashboard", function (RouterCall $call) {
     $call->render("dashboard/index");
 });
 
+$router->get("/dashboard/employees", function (RouterCall $call) {
+    $call->render("dashboard/employees");
+});
+
 $router->get("/register", function (RouterCall $call) {
     $call->render("register");
 });
