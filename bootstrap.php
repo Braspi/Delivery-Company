@@ -4,25 +4,57 @@ include_once 'common/repositories/index.php';
 include_once 'common/utils/router/Router.php';
 include_once 'common/utils/validation/validation.php';
 include_once 'controllers/auth/AuthController.php';
+include_once 'controllers/employees/EmployeeController.php';
 include_once 'common/guards/AuthGuard.php';
 include_once 'common/utils/utils.php';
 
 use utils\router\Router;
 use function utils\router\view;
+use utils\router\RouterCall;
 
 session_start();
 $router = new Router();
 
 $databaseService = new DatabaseService();
-$userRepository = new UserRepository();
+const userRepository = new UserRepository();
+const employeeRepository = new EmployeeRepository();
+
+$router->get("/dashboard", function(RouterCall $call) {
+    $user = userRepository->findById($_SESSION["user_id"]);
+    $call->render("dashboard/index", array("user" => $user));
+}, new AuthGuard());
+
+$router->get("/dashboard/employees", function(RouterCall $call) {
+    $user = userRepository->findById($_SESSION["user_id"]);
+    $call->render("dashboard/employees", array("user" => $user));
+}, new AuthGuard());
+
+$router->get("/dashboard/departments", function(RouterCall $call) {
+    $user = userRepository->findById($_SESSION["user_id"]);
+    $call->render("dashboard/departments", array("user" => $user));
+}, new AuthGuard());
+
+$router->get("/dashboard/status", function(RouterCall $call) {
+    $user = userRepository->findById($_SESSION["user_id"]);
+    $call->render("dashboard/status", array("user" => $user));
+}, new AuthGuard());
+
+$router->get("/dashboard/vehicles", function(RouterCall $call) {
+    $user = userRepository->findById($_SESSION["user_id"]);
+    $call->render("dashboard/vehicles", array("user" => $user));
+}, new AuthGuard());
+
+$router->get("/dashboard/couriers", function(RouterCall $call) {
+    $user = userRepository->findById($_SESSION["user_id"]);
+    $call->render("dashboard/couriers", array("user" => $user));
+}, new AuthGuard());
 
 $router->get("/", view("login"));
 $router->get("/register", view("register"));
-$router->get("/dashboard", view("dashboard/index"), new AuthGuard());
-$router->get("/dashboard/employees", view("dashboard/employees"), new AuthGuard());
 
 $router->controllers(
-    new AuthController($userRepository)
+    new AuthController(userRepository),
+    new EmployeeController(employeeRepository)
 );
 
 $router->error(

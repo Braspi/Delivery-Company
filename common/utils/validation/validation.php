@@ -30,7 +30,7 @@ class Validation {
             if (!$property->isInitialized($dto)) continue;
             $value = $property->getValue($dto);
             foreach ($violations as $violation) {
-                if ($value == null) continue;
+                // if ($value == null) continue;
                 if (!$violation->check($key, $value)) {
                     if (!isset($this->violations[$key]))
                         $this->violations[$key] = $violation->getMessage();
