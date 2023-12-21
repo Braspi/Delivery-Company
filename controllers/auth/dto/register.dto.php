@@ -2,10 +2,12 @@
 
 use utils\validation\Validated;
 use utils\validation\violations\LengthViolation;
+use utils\validation\violations\SameAsViolation;
 
-class LoginDto implements Validated {
+class RegisterDto implements Validated {
     public string $login;
     public string $password;
+    public string $repeatpass;
 
     function validate(): array{
         return array(
@@ -13,8 +15,11 @@ class LoginDto implements Validated {
                 new LengthViolation(3, 12, "Login uzytkownika musi miec od 3 do 12 znaków!"),
             ),
             "password" => array(
-                new LengthViolation(3, 12, "Hasło uzytkownika musi miec od 3 do 12 znaków!"),
-            )
+                new PasswordViolation("Niepoprawny format hasła!"),
+            ),
+             "repeatpass" => array(
+                 new SameAsViolation($this->password, "Podane hasła nie są takie same!"),
+             )
         );
     }
 }

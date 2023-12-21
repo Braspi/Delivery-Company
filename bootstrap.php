@@ -1,37 +1,33 @@
 <?php
+include_once 'common/services/database.service.php';
+include_once 'common/repositories/index.php';
 include_once 'common/utils/router/Router.php';
-include_once 'common/utils/router/RouterCall.php';
 include_once 'common/utils/validation/validation.php';
 include_once 'controllers/auth/AuthController.php';
+include_once 'common/guards/AuthGuard.php';
+include_once 'common/utils/utils.php';
 
 use utils\router\Router;
-use utils\router\RouterCall;
+use function utils\router\view;
 
+session_start();
 $router = new Router();
 
-$router->get("/", function (RouterCall $call) {
-    $call->render("login");
-});
+$databaseService = new DatabaseService();
+$userRepository = new UserRepository();
 
-$router->get("/dashboard", function (RouterCall $call) {
-    $call->render("dashboard/index");
-});
-
-$router->get("/dashboard/employees", function (RouterCall $call) {
-    $call->render("dashboard/employees");
-});
-
-$router->get("/register", function (RouterCall $call) {
-    $call->render("register");
-});
+$router->get("/", view("login"));
+$router->get("/register", view("register"));
+$router->get("/dashboard", view("dashboard/index"), new AuthGuard());
+$router->get("/dashboard/employees", view("dashboard/employees"), new AuthGuard());
 
 $router->controllers(
-    new AuthController()
+    new AuthController($userRepository)
 );
 
-$router->error(function ($call) {
-    $call->render("error");
-});
+$router->error(
+    view("error", array("message" => "Not Found!"))
+);
 
 try {
     $router->matchRoute();

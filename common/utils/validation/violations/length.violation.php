@@ -17,7 +17,7 @@ class LengthViolation implements Violation
         $this->message = $message;
     }
 
-    function check($value): bool
+    function check($key, $value): bool
     {
         $len = strlen($value);
         return $len >= $this->min && $len <= $this->max;
