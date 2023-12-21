@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Document1</title>
 </head>
 <body class="bg-[#F9F9F9]">
     <div class="w-[300px] bg-[#dfdfdf] h-screen border text-[#535353]">
