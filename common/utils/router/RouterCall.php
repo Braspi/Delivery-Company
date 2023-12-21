@@ -1,9 +1,9 @@
 <?php
 namespace utils\router;
 
-use utils\validation\Validated;
 use utils\validation\Validation;
 use Closure;
+
 class RouterCall{
     function respond(mixed $text): void{
         print_r($text);
@@ -57,4 +57,8 @@ class RouterCall{
     function end(): void {
         exit;
     }
+}
+
+function view(string $template, array $params = array()): closure {
+    return fn(RouterCall $call) => $call->render($template, $params);
 }
