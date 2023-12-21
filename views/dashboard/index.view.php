@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body class="bg-[#e7e7e7]">
-<div class="w-[300px] min-w-[235px] bg-[#F9F9F9] h-screen border text-[#4b4b4b] mt-0">
+<div class="w-[300px] min-w-[235px] bg-[#F9F9F9] h-screen border text-[#6d6d6d] mt-0">
         <ul class="text-2xl">
             <li class="transition ease-in-out delay-0 mb-4 h-12 pl-10 flex justify-start border-[#53c9ff40] hover:text-[#3a6c81] hover:border-l-[5px] hover:border-[#53c9ff70] active:border-l-[7px] active:border-[#53c9ff] active:text-black">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-[12px] mr-2"  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
