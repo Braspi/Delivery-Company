@@ -8,6 +8,9 @@ const notyf = new Notyf({
 async function post(url, body, callback) {
     const res = await fetch(url, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(body)
     })
     const data = await res.json();
@@ -32,4 +35,8 @@ function processError(data) {
 function redirect(url, blank=false) {
     if (blank) window.open(url)
     else window.location.href = url
+}
+
+function refId(id) {
+    return document.getElementById(id).value;
 }

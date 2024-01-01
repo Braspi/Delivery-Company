@@ -1,4 +1,3 @@
-<p><?php component("test") ?></p>
 <div class="bg-[#F5F5F5] h-screen flex items-center justify-center h-screen">
     <div class="flex">
         <div class="border p-8 rounded-lg w-96">
@@ -23,15 +22,13 @@
         </div>
     </div>
     <script>
-        const login_input = document.getElementById('login_input');
-        const password_input = document.getElementById('password_input');
         const login_button = document.getElementById('login_button');
 
         login_button.addEventListener('click', () => {
             (async () => {
                 await post("/api/auth/login", {
-                    login: login_input.value,
-                    password: password_input.value
+                    login: refId('login_input'),
+                    password: refId('password_input')
                 }, () => redirect("/dashboard"))
             })();
         })
