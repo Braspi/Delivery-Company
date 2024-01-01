@@ -19,7 +19,7 @@ async function post(url, body, callback) {
 async function get(url, callback) {
     const res = await fetch(url)
     const data = await res.json();
-    if (processError(data)) callback()
+    if (processError(data)) callback(data)
 }
 function processError(data) {
     if(data.success === false) {

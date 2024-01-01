@@ -6,7 +6,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-[12px] mr-2"  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             <input type="submit" value="Pracownicy" id="to_employees"></li>
 
-            <li class="transition ease-in-out delay-0 mb-4 h-12 pl-10 flex justify-start border-[#53c9ff40] hover:text-[#3a6c81] hover:border-l-[5px] hover:border-[#53c9ff70] active:border-l-[7px] active:border-[#53c9ff] active:text-black">
+            <li class="mb-4 h-12 pl-10 flex justify-start border-l-[7px] border-[#53c9ff] text-black">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-3 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folders"><path d="M20 17a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.9a2 2 0 0 1-1.69-.9l-.81-1.2a2 2 0 0 0-1.67-.9H8a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2Z"/><path d="M2 8v11a2 2 0 0 0 2 2h14"/></svg>    
             <input type="submit" value="Oddziały" id="to_departments"></li>
 
@@ -21,9 +21,47 @@
             <li class="transition ease-in-out delay-0 mb-4 h-12 pl-10 flex justify-start border-[#53c9ff40] hover:text-[#3a6c81] hover:border-l-[5px] hover:border-[#53c9ff70] active:border-l-[7px] active:border-[#53c9ff] active:text-black">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-[13px] mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>    
             <input type="submit" value="Kurierzy" id="to_couriers"></li>
-        </ul>
+        </ul>  
+    </div>
+
+    <div class="relative left-7 top-7 border border-slate-400 p-8 rounded-lg w-104 h-[576px] inline-block">
+        <h1 class="text-4xl mb-4">Dodaj oddział</h1>
+        <input type="text" name="department_name" id="department_name" placeholder="Nazwa" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="department_street" id="department_street" placeholder="Ulica" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="department_home_number" id="department_home_number" placeholder="Numer domu" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="department_local_number" id="department_local_number" placeholder="Numer lokalu" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="department_post_code" id="department_post_code" placeholder="Kod pocztowy" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="department_city" id="department_city" placeholder="Miasto" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="department_phone_number" id="department_phone_number" placeholder="Numer telefonu" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="text" name="department_email" id="department_email" placeholder="Email" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+        <input type="submit" value="Dodaj oddział" id="add_department_button" class="bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 active:outline-none active:bg-gray-800">
     </div>
     <script>
+        const department_name = document.getElementById('department_name');
+        const department_street = document.getElementById('department_street');
+        const department_home_number = document.getElementById('department_home_number');
+        const department_local_number = document.getElementById('department_local_number');
+        const department_post_code = document.getElementById('department_post_code');
+        const department_city = document.getElementById('department_city');
+        const department_phone_number = document.getElementById('department_phone_number');
+        const department_email = document.getElementById('department_email');
+        const add_department_button = document.getElementById('add_department_button');
+
+        add_department_button.addEventListener('click', () => {
+            (async () => {
+                await post("/api/department", {
+                    name: department_name.value,
+                    street: department_street.value,
+                    homeNumber: department_home_number.value,
+                    localNumber: parseInt(department_local_number.value),
+                    postCode: department_post_code.value,
+                    city: department_city.value,
+                    phoneNumber: department_phone_number.value,
+                    email: department_email.value
+                }, ()=>{})
+            })();
+        })
+        
         const to_employees = document.getElementById("to_employees");
         const to_departments = document.getElementById("to_departments");
         const to_status = document.getElementById("to_status");
