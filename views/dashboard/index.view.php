@@ -23,20 +23,6 @@
             <input type="submit" value="Kurierzy" id="to_couriers"></li>
         </ul>
     </div>
-    <div>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-        <h1 class="text-6xl mb-6">Najlepsza aplikacja do sprawdzania autobusów -> gdziebusik.pl</h1>
-    </div>
     <script>
         const to_employees = document.getElementById("to_employees");
         const to_departments = document.getElementById("to_departments");

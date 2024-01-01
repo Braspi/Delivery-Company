@@ -5,6 +5,7 @@ include_once 'common/utils/router/Router.php';
 include_once 'common/utils/validation/validation.php';
 include_once 'controllers/auth/AuthController.php';
 include_once 'controllers/employees/EmployeeController.php';
+include_once 'controllers/department/DepartmentController.php';
 include_once 'common/guards/AuthGuard.php';
 include_once 'common/utils/utils.php';
 
@@ -18,6 +19,7 @@ $router = new Router();
 $databaseService = new DatabaseService();
 const userRepository = new UserRepository();
 const employeeRepository = new EmployeeRepository();
+const departmentRepository = new DepartmentRepository();
 
 $router->get("/dashboard", function(RouterCall $call) {
     $user = userRepository->findById($_SESSION["user_id"]);
@@ -54,7 +56,8 @@ $router->get("/register", view("register"));
 
 $router->controllers(
     new AuthController(userRepository),
-    new EmployeeController(employeeRepository)
+    new EmployeeController(employeeRepository),
+    new DepartmentController(departmentRepository)
 );
 
 $router->error(

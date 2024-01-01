@@ -80,5 +80,8 @@
 
         to_employees.addEventListener('click', () => redirect("/dashboard/employees"));
         to_departments.addEventListener('click', () => redirect("/dashboard/departments"));
+        to_status.addEventListener('click', () => redirect("/dashboard/status"));
+        to_vehicles.addEventListener('click', () => redirect("/dashboard/vehicles"));
+        to_couriers.addEventListener('click', () => redirect("/dashboard/couriers"));
     </script>
 </div>
