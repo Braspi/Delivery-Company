@@ -1,58 +1,46 @@
 <?php
-include "common/utils/router/router.php";
+include_once 'common/services/database.service.php';
+include_once 'common/repositories/index.php';
+include_once 'common/utils/router/Router.php';
+include_once 'common/utils/validation/validation.php';
+include_once 'controllers/auth/AuthController.php';
+include_once 'controllers/employees/EmployeeController.php';
+include_once 'controllers/department/DepartmentController.php';
+include_once 'common/guards/AuthGuard.php';
+include_once 'common/utils/utils.php';
 
 use utils\router\Router;
-use utils\router\RouterCall;
-use utils\validation\Validation;
+use function utils\router\view;
 
-include "common/services/database.service.php";
-include "common/utils/validation/index.php";
-include "common/dto/login.dto.php";
-
-const databaseService = new DatabaseService();
-
+session_start();
 $router = new Router();
 
-$router->route('GET', "/", function (RouterCall $call) {
-    $call->render("login");
+const userRepository = new UserRepository();
+const employeeRepository = new EmployeeRepository();
+const departmentRepository = new DepartmentRepository();
+
+$router->param("user", function () {
+    if (!isset($_SESSION["user_id"])) return null;
+    return userRepository->findById($_SESSION["user_id"]);
 });
 
-$router->route('GET', "/register", function (RouterCall $call) {
-    $call->render("register");
-});
+$router->get("/dashboard", view("dashboard/index", array("layout" => "dashboard")), new AuthGuard());
+$router->get("/dashboard/employees", view("dashboard/employees", array("layout" => "dashboard")), new AuthGuard());
+$router->get("/dashboard/departments", view("dashboard/departments", array("layout" => "dashboard")), new AuthGuard());
+$router->get("/dashboard/status", view("dashboard/status", array("layout" => "dashboard")), new AuthGuard());
+$router->get("/dashboard/vehicles", view("dashboard/vehicles", array("layout" => "dashboard")), new AuthGuard());
+$router->get("/dashboard/couriers", view("dashboard/couriers", array("layout" => "dashboard")), new AuthGuard());
 
-$router->route("POST", "/api/auth/login", function ($call) {
-    $dto = new LoginDto($call->body());
-    $state = new Validation($dto);
-    $state->execute($call);
+$router->get("/", view("login"));
+$router->get("/register", view("register"));
 
-    $user = databaseService->query("SELECT id, login, password FROM accounts WHERE login = '" . $dto->login . "'");
-    if (count($user) <= 0) {
-        $call->status(401);
-        $call->json(array(
-            "success" => false,
-            "message" => "Niepoprawne hasło lub login!"
-        ));
-        return;
-    }
-    if(password_verify($dto->password, $user[0]['password'])) {
-        $call->json(array(
-            "success" => true,
-            "message" => ""
-        ));
-        $_SESSION['user_id'] = $user[0]['id'];
-        $_SESSION['isLoggedIn'] = true;
-        return;
-    }
-    $call->json(array(
-        "success" => false,
-        "message" => "Niepoprawne hasło lub login!"
-    ));
-});
+$router->controllers(
+    new AuthController(userRepository),
+    new EmployeeController(employeeRepository),
+    new DepartmentController(departmentRepository)
+);
 
-$router->error(function ($call) {
-    $call->render("error");
-});
+$router->error(view("error", array("message" => "Not Found!")));
 
 try {
     $router->matchRoute();
