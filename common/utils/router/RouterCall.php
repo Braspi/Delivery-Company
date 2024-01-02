@@ -5,6 +5,12 @@ use utils\validation\Validation;
 use Closure;
 
 class RouterCall{
+     private array $view_params;
+
+     public function __construct(array $view_params = array()){
+         $this->view_params = $view_params;
+     }
+
     function respond(mixed $text): void{
         print_r($text);
     }
@@ -47,8 +53,14 @@ class RouterCall{
     }
     function render(string $path, array $params = array()): void
     {
+        $params = array_merge($params, $this->view_params);
+        if (isset($params['layout'])) {
+            extract($params);
+            $params['_CONTENT'] = file_get_contents(root_path . "/views/$path.view.php");
+        }
         extract($params);
-        include root_path . "/views/$path.view.php";
+        if (isset($params['layout'])) include root_path . "/views/layouts/{$params['layout']}.layout.php";
+        else include root_path . "/views/$path.view.php";
     }
     function redirect(string $path): void{
         header("Location: $path");

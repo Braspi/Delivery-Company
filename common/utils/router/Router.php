@@ -6,7 +6,13 @@ use Closure;
 use Exception;
 
 class Router {
-    protected array $routes = [];
+    private array $routes = [];
+    private array $global_params = [];
+
+    public function param(string $key, closure $valueFunc) : void {
+        $value = call_user_func($valueFunc);
+        if ($value != null) $this->global_params[$key] = $value;
+    }
 
     public function get(string $url, closure $target, HttpGuard... $guards): void {
         $this->route(HttpMethod::GET, $url, $target, $guards);
@@ -36,7 +42,7 @@ class Router {
         if (isset($this->routes[$method->name])) {
             foreach ($this->routes[$method->name] as $routeUrl => $data) {
                 $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-                $routerCall = new RouterCall();
+                $routerCall = new RouterCall($this->global_params);
                 $params = array($routerCall);
                 if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
                     $params = array_merge($params, array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY));
@@ -52,7 +58,7 @@ class Router {
         }
         if (isset($this->routes[HttpMethod::EXCEPTION_HANDLER->name])) {
             $target = $this->routes[HttpMethod::EXCEPTION_HANDLER->name]['handler_exception'];
-            call_user_func_array($target, array(new RouterCall()));
+            call_user_func_array($target, array(new RouterCall($this->global_params)));
         } else throw new Exception('Route not found');
     }
     function error(closure $target): void{
