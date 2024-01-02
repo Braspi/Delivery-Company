@@ -27,6 +27,12 @@
 <script>
     const add_employee_button = document.getElementById('add_employee_button');
 
+    (async () => {
+         await get("/api/departments", (data) => {
+            console.log(data);
+         });
+    });
+
     add_employee_button.addEventListener('click', () => {
         (async () => {
             await post("/api/employees", {

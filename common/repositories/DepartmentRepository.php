@@ -8,4 +8,10 @@ class DepartmentRepository extends DatabaseService {
             $dto->name, $dto->street, $dto->homeNumber, $dto->localNumber, $dto->postCode, $dto->city, $dto->phoneNumber, $dto->email
         );
     }
+
+    function find(){
+        return $this->query(
+            "SELECT departments.name FROM `departments`"
+        );
+    }
 }
