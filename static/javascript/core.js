@@ -36,3 +36,7 @@ function redirect(url, blank=false) {
     if (blank) window.open(url)
     else window.location.href = url
 }
+
+function refId(id) {
+    return document.getElementById(id).value;
+}

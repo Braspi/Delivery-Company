@@ -12,6 +12,11 @@ class DepartmentController implements Controller {
         $this->departmentRepository = $departmentRepository;
     }
 
+    function getDepartments(RouterCall $call){
+        $departments = $this->departmentRepository->find();
+        $call->status(201)->json($departments);
+    }
+
     function addDepartment(RouterCall $call){
         $dto = $call->validatedBody(new CreateDepartmentDto());
         $isCreated = $this->departmentRepository->create($dto);
@@ -24,5 +29,6 @@ class DepartmentController implements Controller {
 
     function routes($router): void {
         $router->post("/api/department", fn($call) => $this->addDepartment($call), new AuthGuard());
+        $router->get("/api/departments", fn($call) => $this->getDepartments($call), new AuthGuard());
     }
 }
