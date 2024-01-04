@@ -31,7 +31,7 @@ function applyClasses(string $name): void {
         </ul>
     </div>
 
-    <?php echo $_CONTENT ?>
+    <?php include $_CONTENT ?>
 
     <script>
         const to_employees = document.getElementById("to_employees");

@@ -6,9 +6,11 @@ use Closure;
 
 class RouterCall{
      private array $view_params;
+     private array $path_params;
 
-     public function __construct(array $view_params = array()){
+     public function __construct(array $view_params = array(), ?array $path_params = array()){
          $this->view_params = $view_params;
+         $this->path_params = $path_params;
      }
 
     function respond(mixed $text): void{
@@ -25,6 +27,9 @@ class RouterCall{
     function respondWithCode(string $text, int $code): void{
         echo $text;
         http_response_code($code);
+    }
+    function pathParam(string $key): mixed {
+        return $this->path_params[$key];
     }
     function parameters(): array{
         parse_str($_SERVER['QUERY_STRING'], $parameters);
@@ -56,7 +61,7 @@ class RouterCall{
         $params = array_merge($params, $this->view_params);
         if (isset($params['layout'])) {
             extract($params);
-            $params['_CONTENT'] = file_get_contents(root_path . "/views/$path.view.php");
+            $params['_CONTENT'] = root_path . "/views/$path.view.php";
         }
         extract($params);
         if (isset($params['layout'])) include root_path . "/views/layouts/{$params['layout']}.layout.php";

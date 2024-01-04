@@ -42,16 +42,15 @@ class Router {
         if (isset($this->routes[$method->name])) {
             foreach ($this->routes[$method->name] as $routeUrl => $data) {
                 $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
-                $routerCall = new RouterCall($this->global_params);
-                $params = array($routerCall);
                 if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
-                    $params = array_merge($params, array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY));
+                    $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+                    $routerCall = new RouterCall($this->global_params, $params);
                     if (count($data['guards']) > 0){
                         foreach ($data['guards'] as $guard) {
                             if(!$guard->canActivate($routerCall)) exit();
                         }
                     }
-                    call_user_func_array($data['target'], $params);
+                    call_user_func($data['target'], $routerCall);
                     return;
                 }
             }

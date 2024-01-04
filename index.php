@@ -12,6 +12,7 @@ include "config.php"; ?>
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Dashboard</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+        <meta charset="UTF-8">
         <?php
         echo development_mode ?
             "<script src='https://cdn.tailwindcss.com'></script>":

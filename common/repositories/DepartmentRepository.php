@@ -8,4 +8,12 @@ class DepartmentRepository extends DatabaseService {
             $dto->name, $dto->street, $dto->homeNumber, $dto->localNumber, $dto->postCode, $dto->city, $dto->phoneNumber, $dto->email
         );
     }
+    function findById(int $id): ?array {
+        $result = $this->query("SELECT * FROM `departments` WHERE id = $id");
+        if (count($result) <= 0) return null;
+        return $result[0];
+    }
+    function find(): array {
+        return $this->query("SELECT * FROM `departments`");
+    }
 }
