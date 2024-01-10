@@ -74,15 +74,13 @@
     });
 
     add_employee_button.addEventListener('click', () => {
-        (async () => {
-            await post("/api/employees", {
-                name: refId("employee_name"),
-                lastName: refId('employee_lastname'),
-                phoneNumber: refId('employee_phone_number'),
-                hoursFrom: refId('employee_hours_from'),
-                hoursTo: refId('employee_hours_to'),
-                departmentId: parseInt(refId('employee_department'))
-            }, ()=>{})
-        })();
+        post("/api/employees", {
+            name: refId("employee_name"),
+            lastName: refId('employee_lastname'),
+            phoneNumber: refId('employee_phone_number'),
+            hoursFrom: refId('employee_hours_from'),
+            hoursTo: refId('employee_hours_to'),
+            departmentId: parseInt(refId('employee_department'))
+        }, ()=>{})
     })
 </script>
