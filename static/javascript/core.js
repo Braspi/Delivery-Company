@@ -26,7 +26,7 @@ function get(url, callback) {
             },
         })
         const data = await res.json();
-        if (processError(data)) callback(data)
+        callback(data)
     })();
 }
 function processError(data) {
