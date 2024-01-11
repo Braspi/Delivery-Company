@@ -28,11 +28,11 @@
                                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 border-b border-slate-400 uppercase">Email</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200">
+                        <tbody class="divide-y divide-gray-200" id="tbody">
                         <?php
-                        foreach (departmentRepository->find() as $department) {
-                            component("departments/tableItem", array("department" => $department));
-                        }
+                        // foreach (departmentRepository->find() as $department) {
+                        //     component("departments/tableItem", array("department" => $department));
+                        // }
                         ?>
                         </tbody>
                     </table>
@@ -41,15 +41,52 @@
         </div>
 </div>
 
+<template id="tableItem" type="text/template">
+<tr>
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 border-b border-slate-400">{{id}}</td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400"><?php //_t($department['name']); ?></td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400">
+        <?php
+        // $apartment = $department['local_number'] == null ? "" : "m. {$department['local_number']}";
+        // _t("ul. {$department['street']} {$department['home_number']} $apartment");
+        ?>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 border-b border-slate-400">
+        <?php //_t("{$department['post_code']} {$department['city']}"); ?>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400"><?php //_t($department['phone_number']); ?></td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400"><?php //_t($department['email']); ?></td>
+    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium border-b border-slate-400">
+        <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Edytuj</button>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium border-b border-slate-400">
+        <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none">Usuń</button>
+    </td>
+</tr>
+</template>
 
 <script>
     const add_department_button = document.getElementById('add_department_button');
 
-    function buildTable() {
-        get("/api/departments", ()=> {
-            
+    window.addEventListener('load', () => {
+        get("/api/departments", (data)=> {
+            data.forEach(it => createCard(it))
         });
+    });
+
+    function createCard(card) {
+        const t = document.querySelector('#tableItem')
+        const clone = t.content.cloneNode(true)
+        console.log(clone);
+        document.getElementById("tbody").innerHTML = interpolate(t.innerHTML.toString().trim(), card)
     }
+
+    function interpolate(template, params) {
+    const replaceTags = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '(': '%28', ')': '%29' };
+    const keys = Object.keys(params);
+    const keyVals = Object.values(params).map(text => text().replace(/[&<>\(\)]/g, tag => replaceTags[tag] || tag));
+    return new Function(...keys, `return \`${template}\``)(...keyVals);
+ }
 
     add_department_button.addEventListener('click', () => {
         (async () => {
