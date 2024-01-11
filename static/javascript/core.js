@@ -20,7 +20,11 @@ function post(url, body, callback) {
 }
 function get(url, callback) {
     (async () => {
-        const res = await fetch(url)
+        const res = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
         const data = await res.json();
         if (processError(data)) callback(data)
     })();
