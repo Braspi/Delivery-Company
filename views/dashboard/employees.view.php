@@ -44,13 +44,13 @@
           </thead>
           <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 border-b border-slate-400 dark:text-gray-200">ID</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">ID</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Imię</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Nazwisko</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 border-b border-slate-400 dark:text-gray-200">Numer telefonu</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Numer telefonu</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Godziny od</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Godziny do</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 border-b border-slate-400 dark:text-gray-200">ID oddziału</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">ID oddziału</td>
               <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium border-b border-slate-400">
                 <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Edytuj</button>
               </td>
@@ -67,11 +67,11 @@
 <script>
     const add_employee_button = document.getElementById('add_employee_button');
 
-    (async () => {
-         await get("/api/departments", (data) => {
+    window.addEventListener('load', () => {
+      get("/api/departments", (data) => {
             console.log(data);
-         });
-    });
+      });
+    })
 
     add_employee_button.addEventListener('click', () => {
         post("/api/employees", {
