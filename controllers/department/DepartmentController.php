@@ -44,6 +44,7 @@ class DepartmentController implements Controller {
     }
 
     function find(RouterCall $call): void{
+        header('Content-Type: application/json; charset=utf-8');
         $call->json(
             $this->departmentRepository->find()
         );

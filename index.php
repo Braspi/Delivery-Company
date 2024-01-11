@@ -3,7 +3,7 @@ include_once 'common/utils/router/RouterCall.php';
 use utils\router\RouterCall;
 
 include "config.php"; ?>
-<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
+<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
 <!doctype html>
 <html lang="pl">
     <head>
@@ -44,7 +44,7 @@ try {
     exit();
 }
 ?>
-<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
+<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
         <script src="/static/javascript/core.js"></script>
     </body>
 </html>
