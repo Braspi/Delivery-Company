@@ -43,9 +43,17 @@ class DepartmentController implements Controller {
         $call->json($dto);
     }
 
+    function find(RouterCall $call): void{
+        $call->json(
+            $this->departmentRepository->find()
+        );
+    }
+
+
     function routes($router): void {
         $router->post("/api/departments", fn($call) => $this->create($call), new AuthGuard());
-        $router->put("/api/departments/:id", fn($call) => $this->update($call));
+        $router->put("/api/departments/:id", fn($call) => $this->update($call), new AuthGuard());
         $router->delete("/api/departments/:id", fn($call) => $this->delete($call), new AuthGuard());
+        $router->get("/api/departments", fn($call) => $this->find($call));
     }
 }
