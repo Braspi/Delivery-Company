@@ -46,7 +46,9 @@
     const add_department_button = document.getElementById('add_department_button');
 
     function buildTable() {
-        
+        get("/api/departments", ()=> {
+            
+        });
     }
 
     add_department_button.addEventListener('click', () => {
