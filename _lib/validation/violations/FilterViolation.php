@@ -1,5 +1,5 @@
 <?php
-namespace utils\validation\violations;
+namespace _lib\validation\violations;
 
 class FilterViolation implements Violation {
     private string $message;

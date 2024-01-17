@@ -1,11 +1,10 @@
 <?php
 
-use utils\router\Controller;
-use utils\router\RouterCall;
+use _lib\router\Controller;
+use _lib\router\RouterCall;
 
 include_once 'dto/login.dto.php';
 include_once 'dto/register.dto.php';
-include "common/utils/router/Controller.php";
 
 class AuthController implements Controller {
     private UserRepository $userRepository;

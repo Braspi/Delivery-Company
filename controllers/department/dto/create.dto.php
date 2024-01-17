@@ -1,11 +1,10 @@
 <?php
 
-use utils\validation\Validated;
-use utils\validation\violations\FilterViolation;
-use utils\validation\violations\IsIntegerViolation;
-use utils\validation\violations\LengthViolation;
-use utils\validation\violations\NotEmptyViolation;
-use utils\validation\violations\PatternViolation;
+use _lib\validation\Validated;
+use _lib\validation\violations\FilterViolation;
+use _lib\validation\violations\LengthViolation;
+use _lib\validation\violations\NotEmptyViolation;
+use _lib\validation\violations\PatternViolation;
 
 class CreateDepartmentDto implements Validated {
     public string $name;

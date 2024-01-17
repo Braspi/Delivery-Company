@@ -1,5 +1,5 @@
 <?php
-namespace utils\validation\violations;
+namespace _lib\validation\violations;
 
 class SameAsViolation implements Violation {
     private mixed $value;

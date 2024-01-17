@@ -1,7 +1,7 @@
 <?php
 
-use utils\validation\Validated;
-use utils\validation\violations\LengthViolation;
+use _lib\validation\Validated;
+use _lib\validation\violations\LengthViolation;
 
 class CreateEmployeeDto implements Validated {
     public string $name;

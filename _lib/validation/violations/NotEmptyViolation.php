@@ -1,16 +1,15 @@
 <?php
-namespace utils\validation\violations;
+namespace _lib\validation\violations;
 
-class IsIntegerViolation implements Violation {
+class NotEmptyViolation implements Violation {
     private string $message;
 
-    public function __construct(string $message = "IsInteger violation")
-    {
+    public function __construct(string $message = "Not Empty violation") {
         $this->message = $message;
     }
 
     function check($key, $value): bool {
-        return is_int($value);
+        return !empty($value);
     }
 
     function getMessage(): string

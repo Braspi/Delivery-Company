@@ -1,16 +1,16 @@
 <?php
-include_once 'common/services/database.service.php';
+include_once 'common/services/DatabaseService.php';
 include_once 'common/repositories/index.php';
-include_once 'common/utils/router/Router.php';
-include_once 'common/utils/validation/validation.php';
+include_once '_lib/router/Router.php';
+include_once '_lib/validation/validation.php';
 include_once 'controllers/auth/AuthController.php';
 include_once 'controllers/employees/EmployeeController.php';
 include_once 'controllers/department/DepartmentController.php';
 include_once 'common/guards/AuthGuard.php';
-include_once 'common/utils/utils.php';
+include_once '_lib/utils.php';
 
-use utils\router\Router;
-use function utils\router\view;
+use _lib\router\Router;
+use function _lib\router\view;
 
 session_start();
 $router = new Router();

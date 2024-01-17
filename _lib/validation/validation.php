@@ -1,10 +1,10 @@
 <?php
 
-namespace utils\validation;
+namespace _lib\validation;
 use ReflectionProperty;
 
 require_once 'violations/index.php';
-include "common/utils/validation/validated.php";
+include "_lib/validation/validated.php";
 
 class Validation {
     private array $violations = array();

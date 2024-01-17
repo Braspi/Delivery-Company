@@ -1,7 +1,10 @@
 <?php
-namespace utils\router;
-require 'Component.php';
-require_once 'common/utils/router/HttpMethod.php';
+namespace _lib\router;
+require_once '_lib/router/HttpGuard.php';
+require_once '_lib/router/Controller.php';
+require_once '_lib/router/Component.php';
+require_once '_lib/router/HttpMethod.php';
+
 use Closure;
 use Exception;
 

@@ -1,6 +1,5 @@
 <?php
-include_once 'common/utils/router/HttpGuard.php';
-use utils\router\HttpGuard;
+use _lib\router\HttpGuard;
 
 class AuthGuard implements HttpGuard {
     function canActivate($call): bool {

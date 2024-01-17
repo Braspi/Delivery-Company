@@ -1,8 +1,9 @@
 <?php
 
-use utils\validation\Validated;
-use utils\validation\violations\LengthViolation;
-use utils\validation\violations\SameAsViolation;
+use _lib\validation\Validated;
+use _lib\validation\violations\LengthViolation;
+use _lib\validation\violations\PasswordViolation;
+use _lib\validation\violations\SameAsViolation;
 
 class RegisterDto implements Validated {
     public string $login;

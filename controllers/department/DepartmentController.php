@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-use utils\router\Controller;
-use utils\router\RouterCall;
+use _lib\router\Controller;
+use _lib\router\RouterCall;
 
 include_once 'dto/create.dto.php';
 include_once 'dto/update.dto.php';

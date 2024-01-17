@@ -1,6 +1,7 @@
 <?php
-include_once 'common/utils/router/RouterCall.php';
-use utils\router\RouterCall;
+include_once '_lib/router/RouterCall.php';
+
+use _lib\router\RouterCall;
 
 include "config.php"; ?>
 <?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
