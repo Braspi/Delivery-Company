@@ -48,3 +48,9 @@ function redirect(url, blank=false) {
 function refId(id) {
     return document.getElementById(id).value;
 }
+
+function onMount(callback) {
+    window.addEventListener('load', (e) => {
+        callback(e)
+    })
+}
