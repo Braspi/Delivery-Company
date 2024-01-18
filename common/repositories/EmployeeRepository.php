@@ -11,4 +11,7 @@ class EmployeeRepository extends DatabaseService {
     function find(): array {
         return $this->query("SELECT * FROM `couriers`");
     }
+    function delete(int $id): bool {
+        return $this->execute("DELETE FROM `couriers` WHERE id = ?", "i", $id);
+    }
 }

@@ -21,6 +21,15 @@ class EmployeeController implements Controller {
         }
         $call->status(201)->json(basicResponse("Pracownik został dodany", true));
     }
+    function delete(RouterCall $call): void{
+        $id = intval($call->pathParam("id"));
+        $state = $this->employeeRepository->delete($id);
+        if(!$state) {
+            $call->status(400)->json(basicResponse("Ten pracownik nie istnieje!"));
+            return;
+        }
+        $call->json(basicResponse("OK", true));
+    }
     function find(RouterCall $call): void{
         header('Content-Type: application/json; charset=utf-8');
         $call->json(
@@ -30,6 +39,7 @@ class EmployeeController implements Controller {
 
     function routes($router): void {
         $router->post("/api/employees", fn($call) => $this->addEmployee($call), new AuthGuard());
+        $router->delete("/api/employees/:id", fn($call) => $this->delete($call), new AuthGuard());
         $router->get("/api/employees", fn($call) => $this->find($call));
     }
 }

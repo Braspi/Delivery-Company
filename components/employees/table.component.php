@@ -12,48 +12,42 @@
                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 border-b border-slate-400 uppercase">Godziny od </th>
                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 border-b border-slate-400 uppercase">Godziny do</th>
                         <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 border-b border-slate-400 uppercase">ID oddziału</th>
+                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 border-b border-slate-400 uppercase"></th>
+                        <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 border-b border-slate-400 uppercase"></th>
                     </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200" id="tbody">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">ID</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Imię</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Nazwisko</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Numer telefonu</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Godziny od</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">Godziny do</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200">ID oddziału</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium border-b border-slate-400">
-                                <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Edytuj</button>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium border-b border-slate-400">
-                                <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Usuń</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody class="divide-y divide-gray-200" id="tbody"></tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
+<?php component("modals/remove") ?>
 <script>
     window.addEventListener('load', () => {
-      get("/api/departments", (data) => {
+      get("/api/employees", (data) => {
         data.forEach(it => document.getElementById('tbody').appendChild(row(it)));
       });
     })
 
+    function button(data, clickAction) {
+        const button = document.createElement("button")
+        button.appendChild(document.createTextNode(data))
+        button.classList.value = "inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"
+        button.addEventListener('click', () => clickAction())
+        return button; 
+    }
     function row(data) {
         const tr = document.createElement("tr")
-        tr.appendChild(td(data.id))
-        tr.appendChild(td(data.name))
+        Object.values(data).forEach(it => tr.appendChild(td(document.createTextNode(it))))
+        tr.appendChild(td(button("Edytuj", () => openRemoveModal(data.id)), "px-6 py-4 whitespace-nowrap text-end text-sm font-medium border-b border-slate-400 text-blue-600 hover:text-blue-800"))
+        tr.appendChild(td(button("Usun", () => openRemoveModal(data.id)), "px-6 py-4 whitespace-nowrap text-end text-sm font-medium border-b border-slate-400 text-red-600 hover:text-red-800"))
         return tr;
     }
-    function td(value) {
+    function td(value, style) {
         const td = document.createElement("td")
-        td.classList.value = "px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200"
-        td.appendChild(document.createTextNode(value))
+        td.classList.value = style ? style : "px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-b border-slate-400 dark:text-gray-200"
+        td.appendChild(value)
         return td;
     }
 </script>
