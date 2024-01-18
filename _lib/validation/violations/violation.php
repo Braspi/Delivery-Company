@@ -1,6 +1,6 @@
 <?php
 
-namespace utils\validation\violations;
+namespace _lib\validation\violations;
 interface Violation
 {
     function check($key, $value): bool;

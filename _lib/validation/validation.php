@@ -1,10 +1,10 @@
 <?php
 
-namespace utils\validation;
+namespace _lib\validation;
 use ReflectionProperty;
 
 require_once 'violations/index.php';
-include "common/utils/validation/validated.php";
+include "_lib/validation/validated.php";
 
 class Validation {
     private array $violations = array();
@@ -29,6 +29,7 @@ class Validation {
             $property = $reflection->getProperty($key);
             if (!$property->isInitialized($dto)) continue;
             $value = $property->getValue($dto);
+            if (str_starts_with($property->getType(), "?") && $value == null) continue;
             foreach ($violations as $violation) {
 //                if ($value == null) continue;
 //                echo "erwq " . $value;

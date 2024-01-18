@@ -1,6 +1,6 @@
 <?php
 
-namespace utils\router;
+namespace _lib\router;
 
 enum HttpMethod: string
 {

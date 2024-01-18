@@ -1,5 +1,5 @@
 <?php
-namespace utils\validation\violations;
+namespace _lib\validation\violations;
 
 class NotNullViolation implements Violation {
     private string $message;

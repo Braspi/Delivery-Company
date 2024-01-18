@@ -5,21 +5,29 @@ const notyf = new Notyf({
     },
 });
 
-async function post(url, body, callback) {
-    const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    })
-    const data = await res.json();
-    if (processError(data)) callback()
+function post(url, body, callback) {
+    (async () => {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        const data = await res.json();
+        if (processError(data)) callback(data)
+    })();
 }
-async function get(url, callback) {
-    const res = await fetch(url)
-    const data = await res.json();
-    if (processError(data)) callback(data)
+function get(url, callback) {
+    (async () => {
+        const res = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        const data = await res.json();
+        callback(data)
+    })();
 }
 function processError(data) {
     if(data.success === false) {
@@ -39,4 +47,10 @@ function redirect(url, blank=false) {
 
 function refId(id) {
     return document.getElementById(id).value;
+}
+
+function onMount(callback) {
+    window.addEventListener('load', (e) => {
+        callback(e)
+    })
 }

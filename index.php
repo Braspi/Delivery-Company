@@ -1,9 +1,10 @@
 <?php
-include_once 'common/utils/router/RouterCall.php';
-use utils\router\RouterCall;
+include_once '_lib/router/RouterCall.php';
+
+use _lib\router\RouterCall;
 
 include "config.php"; ?>
-<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
+<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
 <!doctype html>
 <html lang="pl">
     <head>
@@ -12,6 +13,7 @@ include "config.php"; ?>
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Dashboard</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+        <meta charset="UTF-8">
         <?php
         echo development_mode ?
             "<script src='https://cdn.tailwindcss.com'></script>":
@@ -43,7 +45,7 @@ try {
     exit();
 }
 ?>
-<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE'])) { ?>
+<?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
         <script src="/static/javascript/core.js"></script>
     </body>
 </html>
