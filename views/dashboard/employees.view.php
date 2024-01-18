@@ -1,5 +1,5 @@
 <section class="flex flex-col items-center m-6">
-    <div class="border border-slate-400 p-8 rounded-lg w-104 h-[576px]">
+    <div class="border border-slate-400 p-8 rounded-lg w-104">
         <h1 class="text-4xl mb-4">Dodaj pracownika</h1>
         <input type="text" name="employee_name" id="employee_name" placeholder="Imię" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
         <input type="text" name="employee_lastname" id="employee_lastname" placeholder="Nazwisko" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
