@@ -14,10 +14,11 @@
     </div>
 </section>
 <?php
-    component("table", array(
-        "fields" => ['ID', 'name'],
-        "values" => array(array("1", "chuj"))
-    ));
+component("employees/table");
+    // component("table", array(
+    //     "fields" => ['ID', 'name'],
+    //     "values" => array(array("1", "chuj"))
+    // ));
 ?>
 <script>
     const add_employee_button = document.getElementById('add_employee_button');

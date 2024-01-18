@@ -8,4 +8,7 @@ class EmployeeRepository extends DatabaseService {
             $dto->name, $dto->lastName, $dto->phoneNumber, $dto->hoursFrom, $dto->hoursTo, $dto->departmentId
         );
     }
+    function find(): array {
+        return $this->query("SELECT * FROM `couriers`");
+    }
 }

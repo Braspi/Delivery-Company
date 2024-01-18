@@ -21,8 +21,15 @@ class EmployeeController implements Controller {
         }
         $call->status(201)->json(basicResponse("Pracownik został dodany", true));
     }
+    function find(RouterCall $call): void{
+        header('Content-Type: application/json; charset=utf-8');
+        $call->json(
+            $this->employeeRepository->find()
+        );
+    }
 
     function routes($router): void {
         $router->post("/api/employees", fn($call) => $this->addEmployee($call), new AuthGuard());
+        $router->get("/api/employees", fn($call) => $this->find($call));
     }
 }

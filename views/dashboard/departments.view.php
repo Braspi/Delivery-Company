@@ -84,24 +84,22 @@
     function interpolate(template, params) {
     const replaceTags = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '(': '%28', ')': '%29' };
     const keys = Object.keys(params);
-    const keyVals = Object.values(params).map(text => text().replace(/[&<>\(\)]/g, tag => replaceTags[tag] || tag));
+    const keyVals = Object.values(params).map(text => text.toString().replace(/[&<>\(\)]/g, tag => replaceTags[tag] || tag));
     return new Function(...keys, `return \`${template}\``)(...keyVals);
  }
 
     add_department_button.addEventListener('click', () => {
-        (async () => {
-            await post("/api/departments", {
-                name: refId('department_name'),
-                street: refId('department_street'),
-                homeNumber: refId('department_home_number'),
-                localNumber: parseInt(refId('department_local_number')),
-                postCode: refId('department_post_code'),
-                city: refId('department_city'),
-                phoneNumber: refId('department_phone_number'),
-                email: refId('department_email')
-            }, ()=> {
-                notyf.success('Pomyślnie utworzono nowy oddział!')
-            })
-        })();
+        post("/api/departments", {
+            name: refId('department_name'),
+            street: refId('department_street'),
+            homeNumber: refId('department_home_number'),
+            localNumber: parseInt(refId('department_local_number')),
+            postCode: refId('department_post_code'),
+            city: refId('department_city'),
+            phoneNumber: refId('department_phone_number'),
+            email: refId('department_email')
+        }, ()=> {
+            notyf.success('Pomyślnie utworzono nowy oddział!')
+        })
     })
 </script>
