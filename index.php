@@ -26,7 +26,7 @@ include "config.php"; ?>
 <?php } ?>
 <?php
 try {
-    require_once 'bootstrap.php';
+    _require("bootstrap.php");
 } catch (Error $exception) {
     ob_clean();
     $call = new RouterCall();
@@ -36,7 +36,6 @@ try {
             "message" => "Internal Server Error! ({$exception->getMessage()})",
             "stacktrace" => $exception->getTraceAsString()
         ));
-        $call->end();
     }
     $call->status(500)->render('error', array(
         "message" => "Internal Server Error!",

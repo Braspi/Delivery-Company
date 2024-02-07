@@ -1,14 +1,18 @@
 <?php
 
+namespace src\controllers\auth\dto;
+
 use _lib\validation\Validated;
 use _lib\validation\violations\LengthViolation;
 use _lib\validation\violations\NotEmptyViolation;
 
-class LoginDto implements Validated {
+class LoginDto implements Validated
+{
     public string $login;
     public string $password;
 
-    function validate(): array{
+    function validate(): array
+    {
         return array(
             "login" => array(
                 new NotEmptyViolation("Login uzytkownika nie moze byc pusty"),

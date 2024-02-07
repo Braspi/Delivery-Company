@@ -1,15 +1,23 @@
 <?php
 
+namespace src\controllers\department;
+
 use _lib\router\Controller;
 use _lib\router\RouterCall;
+use AuthGuard;
+use DepartmentRepository;
+use src\controllers\department\dto\CreateDepartmentDto;
+use src\controllers\department\dto\UpdateDepartmentDto;
 
 include_once 'dto/create.dto.php';
 include_once 'dto/update.dto.php';
 
-class DepartmentController implements Controller {
+class DepartmentController implements Controller
+{
     private DepartmentRepository $departmentRepository;
 
-    public function __construct(DepartmentRepository $departmentRepository){
+    public function __construct(DepartmentRepository $departmentRepository)
+    {
         $this->departmentRepository = $departmentRepository;
     }
 
@@ -17,13 +25,15 @@ class DepartmentController implements Controller {
     {
         $dto = $call->validatedBody(new CreateDepartmentDto());
         $isCreated = $this->departmentRepository->create($dto);
-        if(!$isCreated) {
+        if (!$isCreated) {
             $call->status(400)->json(basicResponse("Nie można dodać oddziału!"));
             return;
         }
         $call->status(201)->end();
     }
-    function delete(RouterCall $call): void{
+
+    function delete(RouterCall $call): void
+    {
         $departmentId = intval($call->pathParam("id"));
         $department = $this->departmentRepository->findById($departmentId);
         if ($department == null) {
@@ -32,7 +42,9 @@ class DepartmentController implements Controller {
         }
         $call->json($department);
     }
-    function update(RouterCall $call) : void {
+
+    function update(RouterCall $call): void
+    {
         $departmentId = intval($call->pathParam("id"));
         $department = $this->departmentRepository->findById($departmentId);
         if ($department == null) {
@@ -43,7 +55,8 @@ class DepartmentController implements Controller {
         $call->json($dto);
     }
 
-    function find(RouterCall $call): void{
+    function find(RouterCall $call): void
+    {
         header('Content-Type: application/json; charset=utf-8');
         $call->json(
             $this->departmentRepository->find()
@@ -51,7 +64,8 @@ class DepartmentController implements Controller {
     }
 
 
-    function routes($router): void {
+    function routes($router): void
+    {
         $router->post("/api/departments", fn($call) => $this->create($call), new AuthGuard());
         $router->put("/api/departments/:id", fn($call) => $this->update($call), new AuthGuard());
         $router->delete("/api/departments/:id", fn($call) => $this->delete($call), new AuthGuard());
