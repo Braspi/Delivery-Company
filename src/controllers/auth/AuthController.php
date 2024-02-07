@@ -30,7 +30,7 @@ class AuthController implements Controller
             return;
         }
         if (!password_verify($dto->password, $user['password'])) {
-            $call->json(basicResponse("Niepoprawne hasło lub login!"));
+            $call->status(400)->json(basicResponse("Niepoprawne hasło lub login!"));
             return;
         }
         if ($user['status'] != 'ACTIVE') {
