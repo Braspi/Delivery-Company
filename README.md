@@ -23,7 +23,7 @@
     php -S localhost:8080
     ```
 2. Apache configuration It's already handled by .htaccess file
-3. Nginx configuration is available in nginx.conf file<br>
+3. Nginx configuration is available in nginx.conf file<br><br>
     ```nginx configuration
     server {
         index index.php;
