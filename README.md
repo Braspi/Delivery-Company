@@ -1,11 +1,11 @@
 ## Preparing App
-1. Generate TailwindCSS file<br>
+1. Generate TailwindCSS file<br><br>
     ```bash
     npm i -g tailwindcss
     npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css
     ```
 2. Configure project
-    <br>Create **.env** file with content from **.env.example** file<br>
+    <br>Create **.env** file with content from **.env.example** file<br><br>
     ```dotenv
     # MariaDB database credentials
     DATABASE_HOST="localhost"
@@ -18,7 +18,7 @@
     ```
 
 ## Deploying
-1. From PHP CLI:<br>
+1. From PHP CLI:<br><br>
     ```bash
     php -S localhost:8080
     ```
