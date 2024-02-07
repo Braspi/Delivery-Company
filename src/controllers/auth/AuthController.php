@@ -21,8 +21,7 @@ class AuthController implements Controller
         $this->userRepository = $userRepository;
     }
 
-    function logIn(RouterCall $call): void
-    {
+    function logIn(RouterCall $call): void {
         $dto = $call->validatedBody(new LoginDto());
         $user = $this->userRepository->findByLogin($dto->login);
 

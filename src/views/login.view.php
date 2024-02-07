@@ -1,4 +1,5 @@
 <?php
+echo $_SESSION['isLoggedIn'];
 if (isset($_SESSION['isLoggedIn'])) header("Location: /dashboard");
 ?>
 <div class="bg-[#F5F5F5] h-screen flex items-center justify-center h-screen">
@@ -31,7 +32,8 @@ if (isset($_SESSION['isLoggedIn'])) header("Location: /dashboard");
             post("/api/auth/login", {
                 login: refId('login_input'),
                 password: refId('password_input')
-            }, () => redirect("/dashboard"))
+            }, () => {})
+            //redirect("/dashboard")
         })
     </script>
 </div>
