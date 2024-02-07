@@ -1,5 +1,7 @@
 <?php
 
+use src\controllers\employees\dto\CreateEmployeeDto;
+
 class EmployeeRepository extends DatabaseService {
     function create(CreateEmployeeDto $dto): bool {
         return $this->execute(
@@ -7,5 +9,11 @@ class EmployeeRepository extends DatabaseService {
             "sssssi",
             $dto->name, $dto->lastName, $dto->phoneNumber, $dto->hoursFrom, $dto->hoursTo, $dto->departmentId
         );
+    }
+    function find(): array {
+        return $this->query("SELECT * FROM `couriers`");
+    }
+    function delete(int $id): bool {
+        return $this->execute("DELETE FROM `couriers` WHERE id = ?", "i", $id);
     }
 }

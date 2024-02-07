@@ -5,6 +5,18 @@ const notyf = new Notyf({
     },
 });
 
+function _delete(url, body, callback) {
+    (async () => {
+        const res = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await res.json();
+        if (processError(data)) callback(data)
+    })();
+}
 function post(url, body, callback) {
     (async () => {
         const res = await fetch(url, {

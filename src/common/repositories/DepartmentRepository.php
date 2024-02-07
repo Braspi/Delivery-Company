@@ -1,5 +1,7 @@
 <?php
 
+use src\controllers\department\dto\CreateDepartmentDto;
+
 class DepartmentRepository extends DatabaseService {
     function create(CreateDepartmentDto $dto): bool {
         return $this->execute(

@@ -10,6 +10,9 @@ include_once 'common/guards/AuthGuard.php';
 include_once '_lib/utils.php';
 
 use _lib\router\Router;
+use src\controllers\auth\AuthController;
+use src\controllers\department\DepartmentController;
+use src\controllers\employees\EmployeeController;
 use function _lib\router\view;
 
 session_start();

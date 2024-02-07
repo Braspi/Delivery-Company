@@ -1,9 +1,12 @@
 <?php
 
+namespace src\controllers\employees\dto;
+
 use _lib\validation\Validated;
 use _lib\validation\violations\LengthViolation;
 
-class CreateEmployeeDto implements Validated {
+class CreateEmployeeDto implements Validated
+{
     public string $name;
     public string $lastName;
     public string $phoneNumber;
@@ -11,7 +14,8 @@ class CreateEmployeeDto implements Validated {
     public string $hoursTo;
     public int $departmentId;
 
-    function validate(): array{
+    function validate(): array
+    {
         return array(
             "name" => array(
                 new LengthViolation(3, 20, "Imię pracownika musi miec od 3 do 20 liter!"),
