@@ -31,6 +31,6 @@ component("employees/table");
             hoursFrom: refId('employee_hours_from'),
             hoursTo: refId('employee_hours_to'),
             departmentId: parseInt(refId('employee_department'))
-        }, ()=>{})
+        }, ()=> window.location.reload())
     })
 </script>
