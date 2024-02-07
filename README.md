@@ -1,13 +1,11 @@
-# Delivery-Company
-
 ## Preparing App
-1. Generate TailwindCSS file
+1. Generate TailwindCSS file<br>
     ```bash
     npm i -g tailwindcss
     npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css
     ```
 2. Configure project
-    <br>Create **.env** file with content from **.env.example** file
+    <br>Create **.env** file with content from **.env.example** file<br>
     ```dotenv
     # MariaDB database credentials
     DATABASE_HOST="localhost"
@@ -20,12 +18,12 @@
     ```
 
 ## Deploying
-1. From PHP CLI:
+1. From PHP CLI:<br>
     ```bash
     php -S localhost:8080
     ```
 2. Apache configuration It's already handled by .htaccess file
-3. Nginx configuration is available in nginx.conf file
+3. Nginx configuration is available in nginx.conf file<br>
     ```nginx configuration
     server {
         index index.php;
