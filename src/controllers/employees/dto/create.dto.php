@@ -4,6 +4,7 @@ namespace src\controllers\employees\dto;
 
 use _lib\validation\Validated;
 use _lib\validation\violations\LengthViolation;
+use _lib\validation\violations\NotEmptyViolation;
 
 class CreateEmployeeDto implements Validated
 {
@@ -22,7 +23,9 @@ class CreateEmployeeDto implements Validated
             ),
             "lastName" => array(
                 new LengthViolation(3, 20, "Nazwisko pracownika musi miec od 3 do 20 liter!"),
-            )
+            ),
+            "hoursFrom" => array(new NotEmptyViolation("Wpisz godziny pracy kuriera")),
+            "hoursTo" => array(new NotEmptyViolation("Wpisz godziny pracy kuriera"))
         );
     }
 }

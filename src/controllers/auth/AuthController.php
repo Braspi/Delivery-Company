@@ -21,8 +21,7 @@ class AuthController implements Controller
         $this->userRepository = $userRepository;
     }
 
-    function logIn(RouterCall $call): void
-    {
+    function logIn(RouterCall $call): void {
         $dto = $call->validatedBody(new LoginDto());
         $user = $this->userRepository->findByLogin($dto->login);
 
@@ -31,7 +30,7 @@ class AuthController implements Controller
             return;
         }
         if (!password_verify($dto->password, $user['password'])) {
-            $call->json(basicResponse("Niepoprawne hasło lub login!"));
+            $call->status(400)->json(basicResponse("Niepoprawne hasło lub login!"));
             return;
         }
         if ($user['status'] != 'ACTIVE') {

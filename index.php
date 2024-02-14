@@ -2,7 +2,7 @@
 include_once '_lib/router/RouterCall.php';
 
 use _lib\router\RouterCall;
-
+session_start();
 include "config.php"; ?>
 <?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
 <!doctype html>
@@ -45,6 +45,9 @@ try {
 }
 ?>
 <?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
+        <script>
+            lucide.createIcons();
+        </script>
         <script src="/static/javascript/core.js"></script>
     </body>
 </html>
