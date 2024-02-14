@@ -22,6 +22,26 @@
         <input type="date" name="delivery_sending_date" id="delivery_sending_date" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
         <input type="text" name="delivery_price" id="delivery_price" placeholder="Cena" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
         <input type="text" name="delivery_id" id="delivery_id" placeholder="Identyfikator zamówienia" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
-        <input type="submit" value="Dodaj paczkę" id="add_employee_button" class="bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 active:outline-none active:bg-gray-800">
+        <input type="submit" value="Dodaj paczkę" id="add_status_button" class="bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 active:outline-none active:bg-gray-800">
     </div>
 </section>
+
+<script>
+    const add_status_button = document.getElementById('add_status_button');
+
+    add_status_button.addEventListener('click', () => {
+        post("/api/departments", {
+            name: refId('department_name'),
+            street: refId('department_street'),
+            homeNumber: refId('department_home_number'),
+            localNumber: parseInt(refId('department_local_number')),
+            postCode: refId('department_post_code'),
+            city: refId('department_city'),
+            phoneNumber: refId('department_phone_number'),
+            email: refId('department_email')
+        }, ()=> {
+            notyf.success('Pomyślnie utworzono nowy oddział!')
+        })
+    })
+
+</script>
