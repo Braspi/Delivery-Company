@@ -1,7 +1,7 @@
 <?php
 if (isset($_SESSION['isLoggedIn'])) header("Location: /dashboard");
 ?>
-<div class="bg-[#F5F5F5] h-screen flex items-center justify-center h-screen">
+<div class="bg-[#F5F5F5] h-screen flex items-center justify-center">
     <div class="flex">
         <div class="border p-8 rounded-lg w-96">
             <h1 class="text-3xl font-semibold mb-6 text-center">Zaloguj się, aby kontynuować</h1>
