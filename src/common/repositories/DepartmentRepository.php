@@ -18,4 +18,8 @@ class DepartmentRepository extends DatabaseService {
     function find(): array {
         return $this->query("SELECT * FROM `departments`");
     }
+    function delete(int $id): bool {
+        $this->execute("DELETE FROM `couriers` WHERE department_id = ? ", "i", $id);
+        return $this->execute("DELETE FROM `departments` WHERE id = ?", "i", $id);
+    }
 }

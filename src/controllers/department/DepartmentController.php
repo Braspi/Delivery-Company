@@ -35,12 +35,12 @@ class DepartmentController implements Controller
     function delete(RouterCall $call): void
     {
         $departmentId = intval($call->pathParam("id"));
-        $department = $this->departmentRepository->findById($departmentId);
-        if ($department == null) {
-            $call->status(404)->json(basicResponse("Department not found!"));
+        $department = $this->departmentRepository->delete($departmentId);
+        if (!$departmentId) {
+            $call->status(400)->json(basicResponse("Nie można usunac tego odziału!"));
             return;
         }
-        $call->json($department);
+        $call->status(201)->end();
     }
 
     function update(RouterCall $call): void

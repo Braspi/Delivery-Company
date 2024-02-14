@@ -22,8 +22,8 @@
         </div>
     </div>
 </div>
-<?php component("modals/remove") ?>
-<?php component("modals/edit") ?>
+<?php component("departments/modals/remove") ?>
+<?php component("departments/modals/edit") ?>
 <script>
     window.addEventListener('load', () => {
       get("/api/employees", (data) => {
