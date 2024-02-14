@@ -1,3 +1,4 @@
+
 <div class="relative z-10 hidden" id="edit_modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -30,7 +31,6 @@
 <script>
     const editModal = document.getElementById('edit_modal')
 
-    let itemId = null;
     function openEditModal(id) {
         itemId = id;
         editModal.classList.remove('hidden')
