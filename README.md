@@ -20,7 +20,8 @@
 ## Deploying
 1. From PHP CLI:<br><br>
     ```bash
-    php -S localhost:8080
+    php -S localhost:8080 or
+    D:\Xampp\php\php.exe -S localhost:8080 
     ```
 2. Apache configuration It's already handled by .htaccess file
 3. Nginx configuration is available in nginx.conf file<br><br>
