@@ -34,6 +34,7 @@ $app->routing(function (Router $router) {
     $router->get("/dashboard/status", view("dashboard/status", array("layout" => "dashboard")), new AuthGuard());
     $router->get("/dashboard/vehicles", view("dashboard/vehicles", array("layout" => "dashboard")), new AuthGuard());
     $router->get("/dashboard/couriers", view("dashboard/couriers", array("layout" => "dashboard")), new AuthGuard());
+    $router->get("/dashboard/recipients", view("dashboard/recipients", array("layout" => "dashboard")), new AuthGuard());
 
     $router->get("/", view("login"));
     $router->get("/register", view("register"));
