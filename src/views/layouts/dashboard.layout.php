@@ -9,7 +9,8 @@ $items = array(
     array("icon" => "users", "path" => "employees", "name" => "Kurierzy"),
     array("icon" => "folders", "path" => "departments", "name" => "Oddziały"),
     array("icon" => "file-line-chart", "path" => "status", "name" => "Status"),
-    array("icon" => "car", "path" => "vehicles", "name" => "Pojazdy")
+    array("icon" => "car", "path" => "vehicles", "name" => "Pojazdy"),
+    array("icon" => "user-round", "path" => "recipients", "name" => "Odbiorcy")
 )
 ?>
 <div class="bg-[#e7e7e7] flex">
