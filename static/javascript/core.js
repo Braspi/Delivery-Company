@@ -30,6 +30,19 @@ function post(url, body, callback) {
         if (processError(data)) callback(data)
     })();
 }
+function put(url, body, callback) {
+    (async () => {
+        const res = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        const data = await res.json();
+        if (processError(data)) callback(data)
+    })();
+}
 function get(url, callback) {
     (async () => {
         const res = await fetch(url, {
@@ -59,6 +72,9 @@ function redirect(url, blank=false) {
 
 function refId(id) {
     return document.getElementById(id).value;
+}
+function value(id, value) {
+    document.getElementById(id).value = value;
 }
 
 function onMount(callback) {

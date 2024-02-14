@@ -1,4 +1,6 @@
-<?php $id = uniqid(); ?>
+<?php
+
+?>
 <div class="relative z-10 hidden" id="edit_modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -12,12 +14,8 @@
                         <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                             <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Edycja</h3>
                             <div class="mt-2">
-                                <input type="text" id="edit_employee_name" placeholder="Imię" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
-                                <input type="text" id="edit_employee_lastname" placeholder="Nazwisko" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
-                                <input type="text" id="edit_employee_phone_number" placeholder="Numer telefonu" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
-                                <input type="time" id="edit_employee_hours_from" placeholder="Godziny od" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
-                                <input type="time" id="edit_employee_hours_to" placeholder="Godziny do" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
-                                <?php component('departments/selectDepartment', array("id" => $id)) ?>
+                                <input type="text" id="employee_name" placeholder="Imię" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
+                                <input type="text" id="employee_lastname" placeholder="Nazwisko" class="w-96 border border-gray-500 p-2 rounded-md focus:outline-none focus:border-blue-500 block mb-4">
                             </div>
                         </div>
                     </div>
@@ -38,11 +36,7 @@
         itemId = id;
         get(`/api/employees/${itemId}`, (data) => {
             console.log(data)
-            value('edit_employee_name', data.name)
-            value('edit_employee_lastname', data.lastname)
-            value('edit_employee_phone_number', data.phone_number)
-            value('edit_employee_hours_from', data.hours_from)
-            value('edit_employee_hours_to', data.hours_to)
+            value('employee_name', ';chuj')
         })
         editModal.classList.remove('hidden')
     }
@@ -51,14 +45,7 @@
         editModal.classList.add('hidden')
     }
     function process() {
-        put(`/api/employees/${itemId}`, {
-            name: refId("edit_employee_name"),
-            lastName: refId('edit_employee_lastname'),
-            phoneNumber: refId('edit_employee_phone_number'),
-            hoursFrom: refId('edit_employee_hours_from'),
-            hoursTo: refId('edit_employee_hours_to'),
-            departmentId: parseInt(getSelectedDepartmentId<?php _t($id) ?>())
-        }, () => window.location.reload())
+        //_delete(`/api/employees/${itemId}`, {}, () => window.location.reload())
         closeEditModal()
     }
 </script>
