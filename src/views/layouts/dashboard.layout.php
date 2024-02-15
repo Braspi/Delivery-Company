@@ -17,7 +17,10 @@ $items = array(
     <div class="min-w-[300px] bg-[#F9F9F9] h-screen border text-[#6d6d6d] mt-0">
         <div class="h-28 text-black flex flex-col justify-center items-center">
             <h1 class="text-4xl">Witaj!</h1>
-            <p class="text-2xl opacity-50"><?php echo $user['login'] ?></p>
+            <p class="text-2xl opacity-50 flex items-center gap-2">
+                <?php echo $user['login'] ?>
+                <button onclick="logOut()"><i data-lucide="log-out"></i></button>
+            </p>
         </div>
         <ul class="text-2xl">
             <?php foreach ($items as $item) { ?>
@@ -35,4 +38,10 @@ $items = array(
     </div>
 
     <?php include $_CONTENT ?>
+
+    <script>
+        function logOut() {
+            _delete("/api/auth/logout", {}, () => window.location.reload())
+        }
+    </script>
 </div>
