@@ -18,26 +18,32 @@ $items = array(
         <div class="h-28 text-black flex flex-col justify-center items-center">
             <h1 class="text-4xl">Witaj!</h1>
             <p class="text-2xl opacity-50 flex items-center gap-2">
-                <?php echo $user['login'] ?>
+{{--                <?php echo $user['login'] ?>--}}
                 <button onclick="logOut()"><i data-lucide="log-out"></i></button>
             </p>
         </div>
         <ul class="text-2xl">
-            <?php foreach ($items as $item) { ?>
-            <li class="<?php applyClasses($item['path']); ?>">
-                <i data-lucide="<?php _t($item['icon']); ?>" class="mt-3 mr-2"></i>
-                <button onclick="redirect('/dashboard/<?php _t($item['path']); ?>')"><?php _t($item['name']); ?></button>
-            </li>
-            <?php } ?>
+            @foreach($items as $item)
+                <li class="<?php applyClasses($item['path']); ?>">
+                    <i data-lucide="<?php _t($item['icon']); ?>" class="mt-3 mr-2"></i>
+                    <button onclick="redirect('/dashboard/<?php _t($item['path']); ?>')"><?php _t($item['name']); ?></button>
+                </li>
+            @endforeach
+{{--            <?php foreach ($items as $item) { ?>--}}
+{{--            <li class="<?php applyClasses($item['path']); ?>">--}}
+{{--                <i data-lucide="<?php _t($item['icon']); ?>" class="mt-3 mr-2"></i>--}}
+{{--                <button onclick="redirect('/dashboard/<?php _t($item['path']); ?>')"><?php _t($item['name']); ?></button>--}}
+{{--            </li>--}}
+{{--            <?php } ?>--}}
         </ul>
         <div class="absolute bottom-0 pl-6 pb-6">
             <div class="text-gray-700">
-                <p class="text-sm opacity-70 mt-1"><?php echo date('Y') ?> © Design and code - notbytes.pl</p>
+                <p class="text-sm opacity-70 mt-1">{{ date('Y') }} © Design and code - notbytes.pl</p>
             </div>
         </div>
     </div>
 
-    <?php include $_CONTENT ?>
+    @yield('content')
 
     <script>
         function logOut() {

@@ -1,2 +1,5 @@
 static/css/output.css
 .env
+/vendor/
+cache
+composer.lock
