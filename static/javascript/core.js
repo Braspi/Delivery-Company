@@ -13,8 +13,7 @@ function _delete(url, body, callback) {
                 'Content-Type': 'application/json'
             }
         })
-        const data = await res.json();
-        if (processError(data)) callback(data)
+        callback(res)
     })();
 }
 function post(url, body, callback) {
