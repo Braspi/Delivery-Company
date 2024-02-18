@@ -64,7 +64,7 @@ class Router {
                 $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $routeUrl);
                 if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
                     $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                    $routerCall = new RouterCall($this->global_params, $params);
+                    $routerCall = new RouterCall($this->application->blade, $this->global_params, $params);
                     if (count($data['guards']) > 0){
                         foreach ($data['guards'] as $guard) {
                             if(!$guard->canActivate($routerCall)) exit();

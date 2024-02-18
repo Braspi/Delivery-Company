@@ -3,14 +3,21 @@ namespace _lib\router;
 
 use _lib\validation\Validation;
 use Closure;
+use Jenssegers\Blade\Blade;
 
 class RouterCall{
      private array $view_params;
      private array $path_params;
+     private Blade $blade;
 
-     public function __construct(array $view_params = array(), ?array $path_params = array()){
+     public function __construct(
+         Blade $blade,
+         array $view_params = array(),
+         ?array $path_params = array()
+     ){
          $this->view_params = $view_params;
          $this->path_params = $path_params;
+         $this->blade = $blade;
      }
 
     function respond(mixed $text): void{
@@ -58,14 +65,15 @@ class RouterCall{
     }
     function render(string $path, array $params = array()): void
     {
-        $params = array_merge($params, $this->view_params);
-        if (isset($params['layout'])) {
-            extract($params);
-            $params['_CONTENT'] = root_path . "/views/$path.view.php";
-        }
-        extract($params);
-        if (isset($params['layout'])) include root_path . "/views/layouts/{$params['layout']}.layout.php";
-        else include root_path . "/views/$path.view.php";
+        echo $this->blade->render($path, $params);
+//        $params = array_merge($params, $this->view_params);
+//        if (isset($params['layout'])) {
+//            extract($params);
+//            $params['_CONTENT'] = root_path . "/views/$path.view.php";
+//        }
+//        extract($params);
+//        if (isset($params['layout'])) include root_path . "/views/layouts/{$params['layout']}.layout.php";
+//        else include root_path . "/views/$path.view.php";
     }
     function redirect(string $path): void{
         header("Location: $path");

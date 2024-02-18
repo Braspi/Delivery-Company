@@ -1,7 +1,4 @@
 <?php
-include_once '_lib/router/RouterCall.php';
-
-use _lib\router\RouterCall;
 session_start();
 include "config.php"; ?>
 <?php if(!isset($_SERVER['HTTP_CONTENT_TYPE']) && !str_contains($_SERVER['REQUEST_URI'], "api")) { ?>
@@ -29,17 +26,12 @@ try {
     _require("bootstrap.php");
 } catch (Error $exception) {
     ob_clean();
-    $call = new RouterCall();
-    if(isset($_SERVER['HTTP_CONTENT_TYPE']) && $_SERVER['HTTP_CONTENT_TYPE'] == 'application/json') {
-        $call->status(500)->json(array(
-            "success" => false,
-            "message" => "Internal Server Error! ({$exception->getMessage()})",
-            "stacktrace" => $exception->getTraceAsString()
-        ));
-    }
-    $call->status(500)->render('error', array(
-        "message" => "Internal Server Error!",
-        "stacktrace" => $exception
+    header('Content-Type: application/json; charset=utf-8');
+    http_response_code(500);
+    echo json_encode(array(
+        "success" => false,
+        "message" => "Internal Server Error! ({$exception->getMessage()})",
+        "stacktrace" => $exception->getTraceAsString()
     ));
     exit();
 }
