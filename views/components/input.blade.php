@@ -1,5 +1,5 @@
 <label for="{{ $id }}"></label>
-<input type="text"
+<input type="{{ $type }}"
        id="{{ $id }}"
        placeholder="{{ $placeholder }}"
        value="{{ $value }}"

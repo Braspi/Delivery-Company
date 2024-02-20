@@ -1,4 +1,4 @@
-<div class="overflow-x-auto border border-slate-400 rounded-lg p-4 flex flex-col h-min m-8">
+<div class="overflow-x-auto border border-slate-400 rounded-lg p-4 flex flex-col h-min m-6">
     <div class="p-1.5 min-w-full inline-block align-middle">
         <div class="overflow-x-auto overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -11,9 +11,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200" id="tbody">
                 @foreach($items as $item)
-                    @php
-                        $formatted = call_user_func($formatter, $item);
-                    @endphp
+                    @php $formatted = call_user_func($formatter, $item); @endphp
                     <tr>
                         @foreach($headers as $key => $header)
                             @if(isset($formatted[$key]))

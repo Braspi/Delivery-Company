@@ -70,6 +70,7 @@ function redirect(url, blank=false) {
 }
 
 function refId(id) {
+    if(document.getElementById(id) == null) return null
     return document.getElementById(id).value;
 }
 function value(id, value) {

@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('title') Panel - oddziały @endsection
 @section('content')
     <section class="flex flex-col items-center m-6 mr-0">
         <div class="border border-slate-400 p-8 rounded-lg h-fit">

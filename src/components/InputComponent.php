@@ -5,6 +5,7 @@ class InputComponent extends Component {
     public function __construct(
         public string $id,
         public string $placeholder,
+        public string $type = "text",
         public string $value = "",
         public string $class = ""
     ) {}
@@ -17,6 +18,7 @@ class InputComponent extends Component {
             "id" => $this->id,
             "placeholder" => $this->placeholder,
             "value" => $this->value,
+            "type" => $this->type,
             "class" => $this->class
         );
     }
