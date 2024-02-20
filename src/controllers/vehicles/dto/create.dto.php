@@ -1,16 +1,15 @@
 <?php
-namespace src\controllers\vehicle\dto;
 
 use _lib\validation\Validated;
 use _lib\validation\violations\LengthViolation;
 use _lib\validation\violations\NotEmptyViolation;
 
-class UpdateVehicleDto implements Validated {
-    public ?string $brand;
-    public ?string $model;
-    public ?string $registration;
-    public ?int $capacity;
-    public ?int $departmentId;
+class CreateVehicleDto implements Validated {
+    public string $brand;
+    public string $model;
+    public string $registration;
+    public int $capacity;
+    public int $departmentId;
 
     #[\Override] function validate(): array
     {

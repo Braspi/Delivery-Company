@@ -9,6 +9,7 @@ include_once '_lib/validation/validation.php';
 include_once 'controllers/auth/AuthController.php';
 include_once 'controllers/employees/EmployeeController.php';
 include_once 'controllers/department/DepartmentController.php';
+include_once 'controllers/vehicles/VehicleController.php';
 include_once 'common/guards/AuthGuard.php';
 include_once '_lib/router/Component.php';
 include_once '_lib/utils.php';
@@ -21,6 +22,7 @@ use Jenssegers\Blade\Blade;
 use src\controllers\auth\AuthController;
 use src\controllers\department\DepartmentController;
 use src\controllers\employees\EmployeeController;
+use src\controllers\vehicle\VehicleController;
 use function _lib\router\view;
 
 $application = new Application();
@@ -54,14 +56,18 @@ $application
                 array("departments" => departmentRepository->find())
             ), new AuthGuard()
         );
+        $router->get("/dashboard/vehicles", view("dashboard.vehicles",
+            array("vehicles" => vehicleRepository->find())
+        ), new AuthGuard()
+        );
         $router->get("/dashboard/status", view("dashboard.status"), new AuthGuard());
-        $router->get("/dashboard/vehicles", view("dashboard.vehicles"), new AuthGuard());
         $router->get("/dashboard/recipients", view("dashboard.recipients"), new AuthGuard());
 
         $router->controllers(
             new AuthController(userRepository),
             new EmployeeController(employeeRepository),
-            new DepartmentController(departmentRepository)
+            new DepartmentController(departmentRepository),
+            new VehicleController(vehicleRepository)
         );
 
         $router->error(view("error", array("message" => "Not Found!")));
