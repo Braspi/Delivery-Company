@@ -43,18 +43,19 @@ $application
         $router->get("/", view("login"));
         $router->get("/register", view("register"));
 
-        $router->get("/dashboard", view("dashboard.index"), new AuthGuard());
-        $router->get("/dashboard/employees", view("dashboard.employees"), new AuthGuard());
-        $router->get("/dashboard/departments", function (RouterCall $call) {
-//            $result = array();
-//            foreach (departmentRepository->find() as $item) {
-//                array_push($result, "")
-//            }
-            $call->render("dashboard.departments", array("departments" => departmentRepository->find()));
+        $router->get("/dashboard", function (RouterCall $call) {
+            $call->redirect("/dashboard/couriers");
         }, new AuthGuard());
+        $router->get("/dashboard/couriers", view("dashboard.couriers",
+                array("couriers" => employeeRepository->find())
+            ), new AuthGuard()
+        );
+        $router->get("/dashboard/departments", view("dashboard.departments",
+                array("departments" => departmentRepository->find())
+            ), new AuthGuard()
+        );
         $router->get("/dashboard/status", view("dashboard.status"), new AuthGuard());
         $router->get("/dashboard/vehicles", view("dashboard.vehicles"), new AuthGuard());
-        $router->get("/dashboard/couriers", view("dashboard.couriers"), new AuthGuard());
         $router->get("/dashboard/recipients", view("dashboard.recipients"), new AuthGuard());
 
         $router->controllers(
@@ -65,9 +66,3 @@ $application
 
         $router->error(view("error", array("message" => "Not Found!")));
 })->bootstrap();
-
-
-//    $router->get("/dashboard/vehicles", function (RouterCall $call) {
-//        $vehicles = vehicleRepository->find();
-//        $call->render("dashboard/vehicles", array("layout" => "dashboard", "vehicles" => $vehicles));
-//    }, new AuthGuard());

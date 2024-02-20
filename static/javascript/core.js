@@ -76,7 +76,22 @@ function refId(id) {
 function value(id, value) {
     if(document.getElementById(id) != null) document.getElementById(id).value = value;
 }
-
+function getSelectValue(id) {
+    if (document.getElementById(id) == null) return null
+    const element = document.getElementById(id)
+    return element.options[element.selectedIndex].value
+}
+function setSelectValue(id) {
+    if (document.getElementById(id) == null) return null
+    const element = document.getElementById(id)
+    for(let i=0; i < element.options.length; i++) {
+        element.options[0].selected = ''
+        if(element.options[i].value == value) {
+            element.selected = 'selected'
+            break;
+        }
+    }
+}
 function onMount(callback) {
     window.addEventListener('load', (e) => {
         callback(e)

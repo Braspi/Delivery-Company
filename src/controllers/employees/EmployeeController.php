@@ -31,11 +31,18 @@ class EmployeeController implements Controller
         }
         $call->status(201)->json(basicResponse("Pracownik został dodany", true));
     }
-    function update(RouterCall $call): void {
+
+    function update(RouterCall $call): void
+    {
+        $courierId = intval($call->pathParam("id"));
+        $courier = $this->employeeRepository->findById($courierId);
+        if ($courier == null) {
+            $call->status(404)->json(basicResponse("Courier not found!"));
+            return;
+        }
         $dto = $call->validatedBody(new UpdateEmployeeDto());
-        $id = intval($call->pathParam("id"));
-        $state = $this->employeeRepository->update($dto, $id);
-        $call->json($state);
+        $state = $this->employeeRepository->update($dto, $courierId);
+        $call->json(basicResponse("", $state));
     }
     function delete(RouterCall $call): void
     {

@@ -12,7 +12,7 @@ class EmployeeRepository extends DatabaseService {
         );
     }
     function find(): array {
-        return $this->query("SELECT * FROM `couriers`");
+        return $this->query("SELECT couriers.*, departments.name AS 'department_name' FROM `couriers` INNER JOIN departments ON departments.id = couriers.department_id; ");
     }
     function findById(int $id): array {
         $result = $this->query("SELECT * FROM `couriers` WHERE id = $id");
@@ -30,7 +30,7 @@ class EmployeeRepository extends DatabaseService {
         if ($dto->phoneNumber) $str = $str."`phone_number`='{$dto->phoneNumber}',";
         if ($dto->hoursFrom) $str = $str."`hours_from`='{$dto->hoursFrom}',";
         if ($dto->hoursTo) $str = $str."`hours_to`='{$dto->hoursTo}',";
-        if ($dto->departmentId) $str = $str."`department_id`='{$dto->departmentId}',";
+        if ($dto->departmentId) $str = $str."`department_id`={$dto->departmentId},";
         $str = rtrim($str, ",");
         return $this->execute("UPDATE `couriers` SET $str WHERE id = ?", "i", $id);
     }

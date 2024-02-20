@@ -12,14 +12,12 @@
                         <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                             <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Edycja</h3>
                             <div class="mt-2">
-                                {{ new InputComponent("edit_department_name", "Nazwa") }}
-                                {{ new InputComponent("edit_department_street", "Ulica") }}
-                                {{ new InputComponent("edit_department_home_number", "Numer domu") }}
-                                {{ new InputComponent("edit_department_local_number", "Numer lokalu") }}
-                                {{ new InputComponent("edit_department_post_code", "Kod pocztowy") }}
-                                {{ new InputComponent("edit_department_city", "Miasto") }}
-                                {{ new InputComponent("edit_department_phone_number", "Numer telefonu") }}
-                                {{ new InputComponent("edit_department_email", "Email") }}
+                                {{ new InputComponent("edit_employee_name", "Imię") }}
+                                {{ new InputComponent("edit_employee_lastname", "Nazwisko") }}
+                                {{ new InputComponent("edit_employee_phone_number", "Numer telefonu") }}
+                                {{ new InputComponent("edit_employee_hours_from", "Godziny od", "time") }}
+                                {{ new InputComponent("edit_employee_hours_to", "Godziny do", "time") }}
+                                {{ new SelectComponent("departments", "edit_employee_department_id") }}
                             </div>
                         </div>
                     </div>
@@ -39,10 +37,13 @@
     let item_id_{{ $id }} = null;
     function openEditModal(id) {
         item_id_{{ $id }} = id;
-        get(`/api/departments/${item_id_{{ $id }}}`, (data) => {
+        get(`/api/employees/${item_id_{{ $id }}}`, (data) => {
             Object.keys(data).forEach(key => {
-                value(`edit_department_${key}`, data[key])
+                if(key === 'department_id') return
+                console.log(`edit_employee_${key}`, data[key])
+                value(`edit_employee_${key}`, data[key])
             })
+            setSelectValue('edit_employee_department_id', id)
         })
         editModal.classList.remove('hidden')
     }
@@ -51,15 +52,13 @@
         editModal.classList.add('hidden')
     }
     function process{{ $id }}() {
-        put(`/api/departments/${item_id_{{ $id }}}`, {
-            name: refId("edit_department_name"),
-            street: refId('edit_department_street'),
-            homeNumber: refId('edit_department_home_number'),
-            localNumber: parseInt(refId('edit_department_local_number')),
-            postCode: refId('edit_department_post_code'),
-            city: refId('edit_department_city'),
-            phoneNumber: refId("edit_department_phone_number"),
-            email: refId("edit_department_email")
+        put(`/api/employees/${item_id_{{ $id }}}`, {
+            name: refId("edit_employee_name"),
+            lastName: refId('edit_employee_lastname'),
+            phoneNumber: refId('edit_employee_phone_number'),
+            hoursFrom: refId('edit_employee_hours_from'),
+            hoursTo: refId('edit_employee_hours_to'),
+            departmentId: parseInt(refId('edit_employee_department_id')),
         }, async() => {
             window.location.reload()
             closeEditModal()
