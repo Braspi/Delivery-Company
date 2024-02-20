@@ -73,7 +73,7 @@ function refId(id) {
     return document.getElementById(id).value;
 }
 function value(id, value) {
-    document.getElementById(id).value = value;
+    if(document.getElementById(id) != null) document.getElementById(id).value = value;
 }
 
 function onMount(callback) {

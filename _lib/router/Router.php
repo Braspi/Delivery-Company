@@ -77,7 +77,7 @@ class Router {
         }
         if (isset($this->routes[HttpMethod::EXCEPTION_HANDLER->name])) {
             $target = $this->routes[HttpMethod::EXCEPTION_HANDLER->name]['handler_exception'];
-            call_user_func_array($target, array(new RouterCall($this->global_params)));
+            call_user_func_array($target, array(new RouterCall($this->application->blade, $this->global_params)));
         } else throw new Exception('Route not found');
     }
     function error(closure $target): Router{
