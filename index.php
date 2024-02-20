@@ -40,7 +40,7 @@ try {
         <script>
             lucide.createIcons();
         </script>
-        <script src="/static/javascript/core.js"></script>
+    <script src="/static/javascript/core.js"></script>
     </body>
 </html>
 <?php } ?>

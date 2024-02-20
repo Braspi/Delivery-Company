@@ -14,7 +14,7 @@ class DatabaseService {
     function query(string $query): array {
         $response = $this->mysqli->query($query);
         $data = array();
-        while ($row = $response->fetch_assoc()) {
+        while ($row = $response->fetch_array()) {
             $data[] = $row;
         }
         return $data;

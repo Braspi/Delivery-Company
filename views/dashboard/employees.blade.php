@@ -14,7 +14,7 @@
     <!--    </div>-->
     <!--</section>-->
     <?php
-    component("employees/table");
+//    component("employees/table");
     // component("table", array(
     //     "fields" => ['ID', 'name'],
     //     "values" => array(array("1", "chuj"))

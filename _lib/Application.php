@@ -11,7 +11,7 @@ class Application{
         $this->router = new Router($this);
     }
 
-    public function routing(closure $router): Application {
+    public function enableRouting(closure $router): Application {
         call_user_func($router, $this->router);
         return $this;
     }
