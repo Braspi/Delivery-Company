@@ -16,6 +16,7 @@
     # Debug mode
     DEBUG=true
     ```
+    <br>Import sql file (/static/schema.sql) to mysql server<br>
 
 ## Deploying
 1. From PHP CLI:<br><br>
