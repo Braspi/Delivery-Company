@@ -11,6 +11,16 @@ class Application{
         $this->router = new Router($this);
     }
 
+    public function enableValidation(): Application {
+        include_once '_lib/validation/validation.php';
+        return $this;
+    }
+    public function enableDatabase(array $config): Application {
+        include_once "database/Database.php";
+        $database = new Database($config);
+        define("_lib_db_connection", $database);
+        return $this;
+    }
     public function enableRouting(closure $router): Application {
         call_user_func($router, $this->router);
         return $this;

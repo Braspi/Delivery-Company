@@ -4,10 +4,10 @@ namespace Project\DeliveryCompany\controllers\department;
 
 use _lib\router\Controller;
 use _lib\router\RouterCall;
-use AuthGuard;
-use DepartmentRepository;
 use Project\DeliveryCompany\controllers\department\dto\CreateDepartmentDto;
 use Project\DeliveryCompany\controllers\department\dto\UpdateDepartmentDto;
+use Project\DeliveryCompany\guards\AuthGuard;
+use Project\DeliveryCompany\repositories\DepartmentRepository;
 
 readonly class DepartmentController implements Controller {
     public function __construct(

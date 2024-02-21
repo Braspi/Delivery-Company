@@ -4,10 +4,10 @@ namespace Project\DeliveryCompany\controllers\employees;
 
 use _lib\router\Controller;
 use _lib\router\RouterCall;
-use AuthGuard;
-use EmployeeRepository;
 use Project\DeliveryCompany\controllers\employees\dto\CreateEmployeeDto;
 use Project\DeliveryCompany\controllers\employees\dto\UpdateEmployeeDto;
+use Project\DeliveryCompany\guards\AuthGuard;
+use Project\DeliveryCompany\repositories\EmployeeRepository;
 
 readonly class EmployeeController implements Controller {
     public function __construct(

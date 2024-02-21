@@ -4,9 +4,9 @@ namespace src\controllers\vehicle;
 use _lib\router\Controller;
 use _lib\router\Router;
 use _lib\router\RouterCall;
-use AuthGuard;
 use Project\DeliveryCompany\controllers\vehicles\dto\CreateVehicleDto;
-use VehicleRepository;
+use Project\DeliveryCompany\guards\AuthGuard;
+use Project\DeliveryCompany\repositories\VehicleRepository;
 
 readonly class VehicleController implements Controller {
     public function __construct(

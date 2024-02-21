@@ -4,10 +4,10 @@ namespace Project\DeliveryCompany\controllers\auth;
 
 use _lib\router\Controller;
 use _lib\router\RouterCall;
-use AuthGuard;
 use Project\DeliveryCompany\controllers\auth\dto\LoginDto;
 use Project\DeliveryCompany\controllers\auth\dto\RegisterDto;
-use UserRepository;
+use Project\DeliveryCompany\guards\AuthGuard;
+use Project\DeliveryCompany\repositories\UserRepository;
 
 readonly class AuthController implements Controller {
     public function __construct(

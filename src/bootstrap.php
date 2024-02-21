@@ -2,15 +2,13 @@
 require 'vendor/autoload.php';
 
 include_once "components/index.php";
-include_once 'common/services/DatabaseService.php';
-include_once 'common/repositories/index.php';
+include_once 'repositories/index.php';
 include_once '_lib/router/Router.php';
-include_once '_lib/validation/validation.php';
 include_once 'controllers/auth/AuthController.php';
 include_once 'controllers/employees/EmployeeController.php';
 include_once 'controllers/department/DepartmentController.php';
 include_once 'controllers/vehicles/VehicleController.php';
-include_once 'common/guards/AuthGuard.php';
+include_once 'guards/AuthGuard.php';
 include_once '_lib/router/Component.php';
 include_once '_lib/utils.php';
 include_once '_lib/router/RouterCall.php';
@@ -22,6 +20,11 @@ use Jenssegers\Blade\Blade;
 use Project\DeliveryCompany\controllers\auth\AuthController;
 use Project\DeliveryCompany\controllers\department\DepartmentController;
 use Project\DeliveryCompany\controllers\employees\EmployeeController;
+use Project\DeliveryCompany\guards\AuthGuard;
+use Project\DeliveryCompany\repositories\DepartmentRepository;
+use Project\DeliveryCompany\repositories\EmployeeRepository;
+use Project\DeliveryCompany\repositories\UserRepository;
+use Project\DeliveryCompany\repositories\VehicleRepository;
 use src\controllers\vehicle\VehicleController;
 use function _lib\router\redirect;
 use function _lib\router\view;
@@ -33,6 +36,8 @@ const departmentRepository = new DepartmentRepository();
 const vehicleRepository = new VehicleRepository();
 
 $application
+    ->enableDatabase(database)
+    ->enableValidation()
     ->enableBladeEngine(function (Blade $blade) {
         define("gblade", $blade);
         $blade->composer("*", function ($view) {
@@ -40,9 +45,6 @@ $application
                 $user = userRepository->findById($_SESSION['user_id']);
                 if ($user != null) $view->with('user', $user);
             }
-            $view->with("test", function ($a) {
-                echo "ewrqre ".$a;
-            });
         });
     })
     ->enableRouting(function (Router $router) {
