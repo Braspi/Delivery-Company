@@ -15,10 +15,11 @@ class Application{
         include_once '_lib/validation/validation.php';
         return $this;
     }
-    public function enableDatabase(array $config): Application {
+    public function enableDatabase(array $config, closure $repositories): Application {
         include_once "database/Database.php";
         $database = new Database($config);
         define("_lib_db_connection", $database);
+        call_user_func($repositories);
         return $this;
     }
     public function enableRouting(closure $router): Application {

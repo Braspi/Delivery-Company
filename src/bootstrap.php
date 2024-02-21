@@ -4,15 +4,12 @@ require 'vendor/autoload.php';
 include_once "components/index.php";
 include_once 'repositories/index.php';
 include_once '_lib/router/Router.php';
-include_once 'controllers/auth/AuthController.php';
-include_once 'controllers/employees/EmployeeController.php';
-include_once 'controllers/department/DepartmentController.php';
-include_once 'controllers/vehicles/VehicleController.php';
-include_once 'guards/AuthGuard.php';
 include_once '_lib/router/Component.php';
 include_once '_lib/utils.php';
 include_once '_lib/router/RouterCall.php';
 include_once '_lib/Application.php';
+include_once 'controllers/index.php';
+include_once 'guards/AuthGuard.php';
 
 use _lib\router\Router;
 use _lib\router\RouterCall;
@@ -29,23 +26,16 @@ use src\controllers\vehicle\VehicleController;
 use function _lib\router\redirect;
 use function _lib\router\view;
 
-$application = new Application();
-const userRepository = new UserRepository();
-const employeeRepository = new EmployeeRepository();
-const departmentRepository = new DepartmentRepository();
-const vehicleRepository = new VehicleRepository();
-
-$application
-    ->enableDatabase(database)
+(new Application())
+    ->enableDatabase(database, function () {
+        define("userRepository", new UserRepository());
+        define("employeeRepository", new EmployeeRepository());
+        define("departmentRepository", new DepartmentRepository());
+        define("vehicleRepository", new VehicleRepository());
+    })
     ->enableValidation()
     ->enableBladeEngine(function (Blade $blade) {
         define("gblade", $blade);
-        $blade->composer("*", function ($view) {
-            if (isset($_SESSION['user_id'])) {
-                $user = userRepository->findById($_SESSION['user_id']);
-                if ($user != null) $view->with('user', $user);
-            }
-        });
     })
     ->enableRouting(function (Router $router) {
         $router->get("/", function (RouterCall $call) {

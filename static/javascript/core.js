@@ -97,3 +97,12 @@ function onMount(callback) {
         callback(e)
     })
 }
+
+function makeId(length) {
+    const CHARACTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let result = '';
+    for (let i = 0; i < length; i++){
+        result += CHARACTERS.charAt(Math.floor(Math.random() * CHARACTERS.length));
+    }
+    return result;
+}

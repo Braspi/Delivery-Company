@@ -10,7 +10,7 @@
     $items = array(
         array("icon" => "users", "path" => "couriers", "name" => "Kurierzy"),
         array("icon" => "folders", "path" => "departments", "name" => "Oddziały"),
-        array("icon" => "file-line-chart", "path" => "status", "name" => "Status"),
+        array("icon" => "file-line-chart", "path" => "status", "name" => "Przesyłki"),
         array("icon" => "car", "path" => "vehicles", "name" => "Pojazdy"),
         array("icon" => "user-round", "path" => "recipients", "name" => "Odbiorcy")
     )
@@ -20,7 +20,7 @@
             <div class="h-28 text-black flex flex-col justify-center items-center">
                 <h1 class="text-4xl">Witaj!</h1>
                 <p class="text-2xl opacity-50 flex items-center gap-2">
-                    {{ $user['login'] }}
+                    <span id="user_login"></span>
                     <button onclick="logOut()"><i data-lucide="log-out"></i></button>
                 </p>
             </div>
@@ -45,6 +45,12 @@
             function logOut() {
                 _delete("/api/auth/logout", {}, () => window.location.reload())
             }
+
+            document.addEventListener("DOMContentLoaded", (event) => {
+                get("/api/auth/me", (data) => {
+                    document.getElementById('user_login').innerText = data['login']
+                })
+            });
         </script>
     </div>
 @overwrite
