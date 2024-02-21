@@ -5,21 +5,16 @@ use _lib\router\Controller;
 use _lib\router\Router;
 use _lib\router\RouterCall;
 use AuthGuard;
-use src\controllers\vehicle\dto\UpdateVehicleDto;
+use Project\DeliveryCompany\controllers\vehicles\dto\CreateVehicleDto;
+use VehicleRepository;
 
-include_once 'dto/create.dto.php';
-include_once 'dto/update.dto.php';
-
-class VehicleController implements Controller {
-    private \VehicleRepository $repository;
-
-    public function __construct(\VehicleRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+readonly class VehicleController implements Controller {
+    public function __construct(
+        private VehicleRepository $repository
+    ) {}
 
     function create(RouterCall $call): void {
-        $dto = $call->validatedBody(new \CreateVehicleDto());
+        $dto = $call->validatedBody(new CreateVehicleDto());
         $isCreated = $this->repository->create($dto);
         if (!$isCreated) {
             $call->status(400)->json(basicResponse("Nie można dodać pojazdu!"));

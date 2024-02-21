@@ -1,7 +1,7 @@
 <?php
 
-use src\controllers\department\dto\CreateDepartmentDto;
-use src\controllers\department\dto\UpdateDepartmentDto;
+use Project\DeliveryCompany\controllers\department\dto\CreateDepartmentDto;
+use Project\DeliveryCompany\controllers\department\dto\UpdateDepartmentDto;
 
 class DepartmentRepository extends DatabaseService {
     function create(CreateDepartmentDto $dto): bool {

@@ -20,7 +20,7 @@
             <div class="h-28 text-black flex flex-col justify-center items-center">
                 <h1 class="text-4xl">Witaj!</h1>
                 <p class="text-2xl opacity-50 flex items-center gap-2">
-                    <span id="user_login"></span>
+                    {{ $user['login'] }}
                     <button onclick="logOut()"><i data-lucide="log-out"></i></button>
                 </p>
             </div>
@@ -45,9 +45,6 @@
             function logOut() {
                 _delete("/api/auth/logout", {}, () => window.location.reload())
             }
-            get("/api/auth/me", (data) => {
-                document.getElementById("user_login").innerText = data.login
-            })
         </script>
     </div>
 @overwrite

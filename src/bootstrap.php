@@ -19,10 +19,11 @@ include_once '_lib/Application.php';
 use _lib\router\Router;
 use _lib\router\RouterCall;
 use Jenssegers\Blade\Blade;
-use src\controllers\auth\AuthController;
-use src\controllers\department\DepartmentController;
-use src\controllers\employees\EmployeeController;
+use Project\DeliveryCompany\controllers\auth\AuthController;
+use Project\DeliveryCompany\controllers\department\DepartmentController;
+use Project\DeliveryCompany\controllers\employees\EmployeeController;
 use src\controllers\vehicle\VehicleController;
+use function _lib\router\redirect;
 use function _lib\router\view;
 
 $application = new Application();
@@ -35,31 +36,26 @@ $application
     ->enableBladeEngine(function (Blade $blade) {
         define("gblade", $blade);
         $blade->composer("*", function ($view) {
-            $view->with('user', 'chuje1212');
+            if (isset($_SESSION['user_id'])) {
+                $user = userRepository->findById($_SESSION['user_id']);
+                if ($user != null) $view->with('user', $user);
+            }
             $view->with("test", function ($a) {
                 echo "ewrqre ".$a;
             });
         });
     })
     ->enableRouting(function (Router $router) {
-        $router->get("/", view("login"));
+        $router->get("/", function (RouterCall $call) {
+            if ($call->isLoggedIn()) $call->redirect('/dashboard');
+            $call->render("login");
+        });
         $router->get("/register", view("register"));
 
-        $router->get("/dashboard", function (RouterCall $call) {
-            $call->redirect("/dashboard/couriers");
-        }, new AuthGuard());
-        $router->get("/dashboard/couriers", view("dashboard.couriers",
-                array("couriers" => employeeRepository->find())
-            ), new AuthGuard()
-        );
-        $router->get("/dashboard/departments", view("dashboard.departments",
-                array("departments" => departmentRepository->find())
-            ), new AuthGuard()
-        );
-        $router->get("/dashboard/vehicles", view("dashboard.vehicles",
-            array("vehicles" => vehicleRepository->find())
-        ), new AuthGuard()
-        );
+        $router->get("/dashboard", redirect("/dashboard/couriers"), new AuthGuard());
+        $router->get("/dashboard/couriers", view("dashboard.couriers", array("couriers" => employeeRepository->find())), new AuthGuard());
+        $router->get("/dashboard/departments", view("dashboard.departments", array("departments" => departmentRepository->find())), new AuthGuard());
+        $router->get("/dashboard/vehicles", view("dashboard.vehicles", array("vehicles" => vehicleRepository->find())), new AuthGuard());
         $router->get("/dashboard/status", view("dashboard.status"), new AuthGuard());
         $router->get("/dashboard/recipients", view("dashboard.recipients"), new AuthGuard());
 

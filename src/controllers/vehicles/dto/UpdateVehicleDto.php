@@ -1,5 +1,5 @@
 <?php
-namespace src\controllers\vehicle\dto;
+namespace Project\DeliveryCompany\controllers\vehicles\dto;
 
 use _lib\validation\Validated;
 use _lib\validation\violations\LengthViolation;

@@ -20,6 +20,9 @@ class RouterCall{
          $this->blade = $blade;
      }
 
+    function isLoggedIn(): bool {
+         return isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
+     }
     function respond(mixed $text): void{
         print_r($text);
     }
@@ -86,4 +89,7 @@ class RouterCall{
 
 function view(string $template, array $params = array()): closure {
     return fn(RouterCall $call) => $call->render($template, $params);
+}
+function redirect(string $to): closure {
+    return fn(RouterCall $call) => $call->redirect($to);
 }

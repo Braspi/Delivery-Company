@@ -1,25 +1,18 @@
 <?php
 
-namespace src\controllers\auth;
+namespace Project\DeliveryCompany\controllers\auth;
 
 use _lib\router\Controller;
 use _lib\router\RouterCall;
 use AuthGuard;
-use src\controllers\auth\dto\LoginDto;
-use src\controllers\auth\dto\RegisterDto;
+use Project\DeliveryCompany\controllers\auth\dto\LoginDto;
+use Project\DeliveryCompany\controllers\auth\dto\RegisterDto;
 use UserRepository;
 
-include_once 'dto/login.dto.php';
-include_once 'dto/register.dto.php';
-
-class AuthController implements Controller
-{
-    private UserRepository $userRepository;
-
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
+readonly class AuthController implements Controller {
+    public function __construct(
+        private UserRepository $userRepository
+    ){}
 
     function logIn(RouterCall $call): void {
         $dto = $call->validatedBody(new LoginDto());

@@ -12,14 +12,19 @@
             {{ new InputComponent("department_city", "Miasto") }}
             {{ new InputComponent("department_phone_number", "Numer telefonu") }}
             {{ new InputComponent("department_email", "Email") }}
-            <button type="submit" id="add_department_button" class="bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 active:outline-none active:bg-gray-800">
-                Dodaj oddział
-            </button>
+            {{ new ButtonComponent("Dodaj oddział", "add_department_button") }}
         </div>
     </section>
 
     {{ new TableComponent(
-        array("name" => "Nazwa", "address" => "Adres", "city" => "miejscowość", "phone" => "telefon", "email" => "email", "action_edit" => "", "action_remove" => ""),
+        array(
+            "name" => "Nazwa",
+            "address" => "Adres",
+            "city" => "miejscowość",
+            "phone" => "telefon",
+            "email" => "email",
+            "action_edit" => "", "action_remove" => ""
+        ),
         $departments,
         function (array $row) {
             $apartment = $row['local_number'] == null ? "" : "m. {$row['local_number']}";

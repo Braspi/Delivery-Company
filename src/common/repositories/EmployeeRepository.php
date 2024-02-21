@@ -1,7 +1,7 @@
 <?php
 
-use src\controllers\employees\dto\CreateEmployeeDto;
-use src\controllers\employees\dto\UpdateEmployeeDto;
+use Project\DeliveryCompany\controllers\employees\dto\CreateEmployeeDto;
+use Project\DeliveryCompany\controllers\employees\dto\UpdateEmployeeDto;
 
 class EmployeeRepository extends DatabaseService {
     function create(CreateEmployeeDto $dto): bool {

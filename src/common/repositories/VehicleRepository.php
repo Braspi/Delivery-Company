@@ -1,6 +1,6 @@
 <?php
 
-use src\controllers\vehicle\dto\UpdateVehicleDto;
+use Project\DeliveryCompany\controllers\vehicles\dto\UpdateVehicleDto;
 
 class VehicleRepository extends DatabaseService {
     function find(): array {

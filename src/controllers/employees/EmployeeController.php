@@ -1,25 +1,18 @@
 <?php
 
-namespace src\controllers\employees;
+namespace Project\DeliveryCompany\controllers\employees;
 
 use _lib\router\Controller;
 use _lib\router\RouterCall;
 use AuthGuard;
 use EmployeeRepository;
-use src\controllers\employees\dto\CreateEmployeeDto;
-use src\controllers\employees\dto\UpdateEmployeeDto;
+use Project\DeliveryCompany\controllers\employees\dto\CreateEmployeeDto;
+use Project\DeliveryCompany\controllers\employees\dto\UpdateEmployeeDto;
 
-include_once 'dto/create.dto.php';
-include_once 'dto/update.dto.php';
-
-class EmployeeController implements Controller
-{
-    private EmployeeRepository $employeeRepository;
-
-    public function __construct(EmployeeRepository $employeeRepository)
-    {
-        $this->employeeRepository = $employeeRepository;
-    }
+readonly class EmployeeController implements Controller {
+    public function __construct(
+        private EmployeeRepository $employeeRepository
+    ){}
 
     function addEmployee(RouterCall $call): void
     {

@@ -15,7 +15,15 @@
     </section>
 
     {{ new TableComponent(
-        array("name" => "Imię", "lastname" => "Nazwisko", "phone_number" => "Numer telefonu", "hours_from" => "Godziny pracy od", "hours_to" => "Godziny pracy do", "department" => "Nazwa oddziału", "action_edit" => "", "action_remove" => ""),
+        array(
+            "name" => "Imię",
+            "lastname" => "Nazwisko",
+            "phone_number" => "Numer telefonu",
+            "hours_from" => "Godziny pracy od",
+            "hours_to" => "Godziny pracy do",
+            "department" => "Nazwa oddziału",
+            "action_edit" => "", "action_remove" => ""
+        ),
         $couriers,
         function (array $row) {
             return array(
@@ -33,7 +41,8 @@
 
     {{ new ModalComponent("couriers", "edit") }}
     {{ new ModalComponent("couriers", "remove") }}
-
+@endsection
+@section('script')
     <script>
         const add_employee_button = document.getElementById('add_employee_button');
 

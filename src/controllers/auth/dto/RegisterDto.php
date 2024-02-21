@@ -1,14 +1,13 @@
 <?php
 
-namespace src\controllers\auth\dto;
+namespace Project\DeliveryCompany\controllers\auth\dto;
 
 use _lib\validation\Validated;
 use _lib\validation\violations\LengthViolation;
 use _lib\validation\violations\PasswordViolation;
 use _lib\validation\violations\SameAsViolation;
 
-class RegisterDto implements Validated
-{
+class RegisterDto implements Validated{
     public string $login;
     public string $password;
     public string $repeatpass;

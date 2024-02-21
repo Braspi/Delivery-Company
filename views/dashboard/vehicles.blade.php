@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 @section('title') Panel - pojazdy @endsection
 @section('content')
-    <section class="flex flex-col items-center m-6">
-        <div class="relative left-7 top-7 border border-slate-400 p-8 rounded-lg w-104 h-min">
+    <section class="flex flex-col items-center m-6 mr-0">
+        <div class="border border-slate-400 p-8 rounded-lg h-fit">
             <h1 class="text-4xl mb-4">Dodaj pojazd</h1>
             {{ new InputComponent("vehicle_brand", "Marka") }}
             {{ new InputComponent("vehicle_model", "Model") }}
@@ -14,7 +14,14 @@
     </section>
 
     {{ new TableComponent(
-        array("brand" => "Marka", "model" => "Model", "registration" => "Rejestracja", "capacity" => "Pojemność", "department" => "Nazwa oddziału", "action_edit" => "", "action_remove" => ""),
+        array(
+            "brand" => "Marka",
+            "model" => "Model",
+            "registration" => "Rejestracja",
+            "capacity" => "Pojemność",
+            "department" => "Nazwa oddziału",
+            "action_edit" => "", "action_remove" => ""
+        ),
         $vehicles,
         function (array $row) {
             return array(

@@ -1,13 +1,12 @@
 <?php
 
-namespace src\controllers\employees\dto;
+namespace Project\DeliveryCompany\controllers\employees\dto;
 
 use _lib\validation\Validated;
 use _lib\validation\violations\LengthViolation;
 use _lib\validation\violations\NotEmptyViolation;
 
-class CreateEmployeeDto implements Validated
-{
+class CreateEmployeeDto implements Validated {
     public string $name;
     public string $lastName;
     public string $phoneNumber;

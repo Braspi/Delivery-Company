@@ -1,25 +1,18 @@
 <?php
 
-namespace src\controllers\department;
+namespace Project\DeliveryCompany\controllers\department;
 
 use _lib\router\Controller;
 use _lib\router\RouterCall;
 use AuthGuard;
 use DepartmentRepository;
-use src\controllers\department\dto\CreateDepartmentDto;
-use src\controllers\department\dto\UpdateDepartmentDto;
+use Project\DeliveryCompany\controllers\department\dto\CreateDepartmentDto;
+use Project\DeliveryCompany\controllers\department\dto\UpdateDepartmentDto;
 
-include_once 'dto/create.dto.php';
-include_once 'dto/update.dto.php';
-
-class DepartmentController implements Controller
-{
-    private DepartmentRepository $departmentRepository;
-
-    public function __construct(DepartmentRepository $departmentRepository)
-    {
-        $this->departmentRepository = $departmentRepository;
-    }
+readonly class DepartmentController implements Controller {
+    public function __construct(
+        private DepartmentRepository $departmentRepository
+    ) {}
 
     function create(RouterCall $call): void
     {

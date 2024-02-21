@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('title') Logowanie @endsection
 @section('content')
-    <?php
-    if (isset($_SESSION['isLoggedIn'])) header("Location: /dashboard");
-    ?>
     <div class="bg-[#F5F5F5] h-screen flex items-center justify-center">
         <div class="flex">
             <div class="border p-8 rounded-lg w-96">
